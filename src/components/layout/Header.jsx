@@ -2,16 +2,15 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Avatar from "../common/Avatar.jsx";
 
-function HeaderActions({ currentUser }) {
+function HeaderActions({ currentUser, showCreatePostButton }) {
 
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   return (
     <div className="header-actions">
-
-      <Link className="button" to="/posts/new">
-        기록 올리기
-      </Link>
-
+      {showCreatePostButton && (
+        <Link className="button" to="/posts/new">기록 올리기</Link>
+      )}
+      
       <div className="profile-menu">
         <button
           className="profile-menu-button"
@@ -55,7 +54,7 @@ function HeaderActions({ currentUser }) {
 }
 
 
-function Header({ currentUser }) {
+function Header({ currentUser, showCreatePostButton = true }) {
   return (
     <header className="topbar">
       <div className="topbar-inner container-inner">
@@ -66,7 +65,7 @@ function Header({ currentUser }) {
           FOCAL<span className="brand-dot">.</span>
         </Link>
 
-        <HeaderActions currentUser={currentUser} />
+        <HeaderActions currentUser={currentUser} showCreatePostButton={showCreatePostButton} />
       </div>
     </header>
   );

@@ -1,6 +1,7 @@
 import LikeButton from "../feed/LikeButton.jsx";
 import CommentIcon from "../icons/CommentIcon.jsx";
 import Avatar from "../common/Avatar.jsx";
+import { Link } from "react-router-dom";
 
 function PostDetail({ post, isMyPost }) {
   return (
@@ -11,12 +12,13 @@ function PostDetail({ post, isMyPost }) {
 
           {isMyPost && (
             <div className="detail-actions">
-              <button
+              
+              <Link
                 className="button outline"
-                type="button"
+                to={`/posts/edit/${post.id}`}
               >
                 수정
-              </button>
+              </Link>
 
               <button
                 className="button critical"

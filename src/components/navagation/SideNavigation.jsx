@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function SideNavigation() {
-  const [selectedMenu, setSelectedMenu] = useState("최근 장면");
+function SideNavigation({selectedMenu, onMenuChange}) {
 
   return (
     <aside className="side-nav" aria-label="피드 탐색">
@@ -12,9 +11,9 @@ function SideNavigation() {
         <button
           type="button"
           className={`nav-item ${
-            selectedMenu === "최근 장면" ? "active" : ""
+            selectedMenu === "recent" ? "active" : ""
           }`}
-          onClick={() => setSelectedMenu("최근 장면")}
+          onClick={() => onMenuChange("recent")}
         >
           최근 장면
         </button>
@@ -22,9 +21,9 @@ function SideNavigation() {
         <button
           type="button"
           className={`nav-item ${
-            selectedMenu === "인기 기록" ? "active" : ""
+            selectedMenu === "popular" ? "active" : ""
           }`}
-          onClick={() => setSelectedMenu("인기 기록")}
+          onClick={() => onMenuChange("popular")}
         >
           인기 기록
         </button>

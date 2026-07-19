@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Home.jsx";
 import ProfileEditPage from "./pages/ProfileEditPage.jsx";
-import CreatePostForm from "./pages/CreatePostForm.jsx";
+import PostFormPage from "./pages/PostFormPage.jsx";
 import PostDetailPage from "./pages/PostDetailPage.jsx";
 
 function App() {
@@ -16,7 +16,12 @@ function App() {
 
       <Route
         path="/posts/new"
-        element={<CreatePostForm />} 
+        element={<PostFormPage mode={"create"}/>} 
+      />
+
+      <Route 
+        path="/posts/edit/:postId"
+        element={<PostFormPage mode={"edit"}/>}
       />
 
       <Route
