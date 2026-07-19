@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>프로필 편집 — FOCAL</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/settings.css" />
+  </head>
+  <body class="settings-page">
+    <header class="topbar"><div class="topbar-inner container-inner"><a class="brand" href="index.html">FOCAL<span class="brand-dot">.</span></a><div class="header-actions"><a class="button" href="post-create.html"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><span>기록 올리기</span></a><img class="avatar" src="../assets/image.png" alt="정지호 프로필" /></div></div></header>
+    <main class="settings-shell container-inner">
+      <a class="back-link" href="index.html"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>피드로 돌아가기</a>
+      <section class="settings-card">
+        <nav class="settings-tabs" aria-label="계정 설정"><a class="active" href="profile-edit.html">프로필</a><a href="password-edit.html">비밀번호</a></nav>
+        <h1 class="page-heading">프로필 편집</h1><p class="lead">다른 사진가들에게 보여줄 프로필을 관리합니다.</p>
+        <form class="settings-form" action="#" method="post">
+          <div class="profile-photo-field"><label class="profile-photo" for="edit-profile-photo"><img src="../assets/image.png" alt="현재 프로필 사진" /><span>사진 변경</span></label><input class="sr-only" id="edit-profile-photo" name="profile-photo" type="file" accept="image/*" /></div>
+          <div class="field"><span class="field-label">이메일</span><div class="readonly-value">hello@focal.kr</div><p class="helper">이메일은 변경할 수 없습니다.</p></div>
+          <div class="field"><label for="edit-nickname">닉네임</label><input id="edit-nickname" name="nickname" type="text" value="정지호" maxlength="10" required /></div>
+          <div class="field"><label for="edit-bio">소개</label><textarea id="edit-bio" name="bio" maxlength="120" placeholder="좋아하는 사진과 시선에 대해 들려주세요">빛이 머문 풍경을 천천히 기록합니다.</textarea><p class="helper">최대 120자</p></div>
+          <div class="settings-actions"><button class="button wide" type="submit">변경사항 저장</button></div>
+        </form>
+        <div class="danger-zone"><div><strong>회원 탈퇴</strong><p>작성한 기록과 댓글이 모두 삭제됩니다.</p></div><button class="button critical" type="button">탈퇴하기</button></div>
+      </section>
+    </main>
+  </body>
+</html>

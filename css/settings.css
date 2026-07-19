@@ -1,0 +1,142 @@
+.settings-page {
+  background: var(--section);
+}
+
+.settings-shell {
+  max-width: 704px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+.settings-card {
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: #fff;
+}
+
+.settings-card .lead {
+  margin-bottom: 32px;
+}
+
+.settings-form {
+  display: grid;
+  gap: 24px;
+}
+
+.profile-photo-field {
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+.profile-photo {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  overflow: hidden;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-photo span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+}
+
+.readonly-value {
+  min-height: 48px;
+  padding: 13px 14px;
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.settings-actions {
+  padding-top: 8px;
+}
+
+.danger-zone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.danger-zone strong {
+  display: block;
+  font-size: 14px;
+}
+
+.danger-zone p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.settings-tabs {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.settings-tabs a {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.settings-tabs a.active {
+  color: var(--ink);
+}
+
+.settings-tabs a.active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--primary);
+  content: "";
+}
+
+@media (max-width: 767px) {
+  .settings-page {
+    background: #fff;
+  }
+
+  .settings-shell {
+    padding-top: 28px;
+  }
+
+  .settings-card {
+    padding: 0;
+    border: 0;
+  }
+
+  .danger-zone {
+    align-items: flex-start;
+    gap: 16px;
+  }
+}

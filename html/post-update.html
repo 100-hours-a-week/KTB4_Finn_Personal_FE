@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>기록 수정 — FOCAL</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/editor.css" />
+  </head>
+  <body class="editor-page">
+    <header class="topbar"><div class="topbar-inner container-inner"><a class="brand" href="index.html">FOCAL<span class="brand-dot">.</span></a><div class="header-actions"><a href="profile-edit.html"><img class="avatar" src="../assets/image.png" alt="정지호 프로필" /></a></div></div></header>
+    <main class="editor-shell container-inner">
+      <a class="back-link" href="post-detail.html"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>기록으로 돌아가기</a>
+      <section class="editor-card">
+        <h1 class="page-heading">기록 수정</h1><p class="lead">장면의 제목과 이야기를 다듬을 수 있어요.</p>
+        <form class="editor-form" action="#" method="post">
+          <div class="field"><label for="update-title">제목</label><input id="update-title" name="title" type="text" maxlength="26" value="비가 그친 뒤, 잠시 열린 하늘" required /></div>
+          <div class="field"><label for="update-tags">태그</label><input id="update-tags" name="tags" type="text" value="풍경, 노을, 오늘의빛" /><p class="helper">쉼표로 구분해 최대 5개까지 입력할 수 있어요.</p></div>
+          <div class="field"><label for="update-description">설명</label><textarea id="update-description" name="description" required>퇴근길에 마주친 겹겹의 구름과 산 능선. 짧은 순간이라 더 오래 바라봤어요.</textarea></div>
+          <div class="field"><span class="field-label">사진</span><div class="current-photo"><img src="../assets/post_img.png" alt="현재 등록된 저녁 풍경 사진" /><div><p>현재 사진</p><span>새 사진을 선택하면 교체됩니다.</span></div></div><label class="upload-box" for="update-photo"><span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><strong>사진 변경하기</strong><span>JPG, PNG · 최대 10MB</span></span></label><input class="sr-only" id="update-photo" name="photo" type="file" accept="image/jpeg,image/png" /></div>
+          <div class="form-actions"><a class="button outline" href="post-detail.html">취소</a><button class="button" type="submit">수정 완료</button></div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

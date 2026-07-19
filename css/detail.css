@@ -1,0 +1,165 @@
+.detail-shell {
+  max-width: 824px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+.detail-head {
+  margin-bottom: 20px;
+}
+
+.detail-title-row {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.detail-title-row h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 33px;
+  letter-spacing: -0.02em;
+}
+
+.detail-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.detail-author .avatar {
+  width: 44px;
+  height: 44px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.detail-actions .button {
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.detail-photo {
+  width: 100%;
+  max-height: 80vh;
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  object-fit: contain;
+}
+
+.detail-copy {
+  margin: 24px 0 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.detail-tags {
+  margin: 12px 0 0;
+  color: var(--primary-deep);
+  font-size: 13px;
+}
+
+.detail-metrics {
+  display: flex;
+  gap: 4px;
+  padding: 16px 0;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.comment-section {
+  padding-top: 36px;
+}
+
+.comment-section h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.comment-form {
+  padding: 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 88px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.comment-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
+.comment-list {
+  display: grid;
+  gap: 0;
+  margin-top: 16px;
+}
+
+.comment {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-header .avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.comment-tools {
+  display: flex;
+  margin-left: auto;
+}
+
+.comment-tools a {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.comment p {
+  margin: 12px 0 0 46px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+@media (max-width: 600px) {
+  .detail-shell {
+    padding-top: 28px;
+  }
+
+  .detail-title-row {
+    display: block;
+  }
+
+  .detail-actions {
+    margin-top: 16px;
+  }
+}

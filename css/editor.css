@@ -1,0 +1,120 @@
+.editor-page {
+  background: var(--section);
+}
+
+.editor-shell {
+  max-width: 824px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+.editor-card {
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: #fff;
+}
+
+.editor-card .lead {
+  margin-bottom: 32px;
+}
+
+.editor-form {
+  display: grid;
+  gap: 24px;
+}
+
+.upload-box {
+  display: grid;
+  min-height: 240px;
+  place-items: center;
+  padding: 32px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--section);
+  color: var(--text);
+  cursor: pointer;
+  text-align: center;
+}
+
+.upload-box:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.upload-box svg {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 12px;
+  color: var(--primary-deep);
+}
+
+.upload-box strong {
+  display: block;
+  font-size: 14px;
+}
+
+.upload-box span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.current-photo {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.current-photo img {
+  width: 140px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+.current-photo p {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.current-photo span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+@media (max-width: 767px) {
+  .editor-page {
+    background: #fff;
+  }
+
+  .editor-shell {
+    padding-top: 28px;
+  }
+
+  .editor-card {
+    padding: 0;
+    border: 0;
+  }
+
+  .upload-box {
+    min-height: 200px;
+  }
+
+  .form-actions .button {
+    flex: 1;
+  }
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="사진으로 하루의 시선을 나누는 커뮤니티 FOCAL" />
+    <title>FOCAL — 오늘의 장면</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/home.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner container-inner">
+        <a class="brand" href="index.html" aria-label="FOCAL 홈">FOCAL<span class="brand-dot">.</span></a>
+        <label class="search">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <span class="sr-only">사진과 태그 검색</span>
+          <input type="search" placeholder="사진과 태그를 검색해보세요" />
+        </label>
+        <div class="header-actions">
+          <a class="button" href="post-create.html">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            <span>기록 올리기</span>
+          </a>
+          <a href="profile-edit.html" aria-label="내 프로필"><img class="avatar" src="../assets/image.png" alt="정지호 프로필" /></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="home-layout container-inner">
+      <aside class="side-nav" aria-label="피드 탐색">
+        <nav class="nav-group">
+          <p class="nav-label">피드</p>
+          <a class="nav-item active" href="index.html">최근 장면</a>
+          <a class="nav-item" href="index.html#popular">인기 기록</a>
+          <a class="nav-item" href="index.html#following">팔로잉</a>
+        </nav>
+        <nav class="nav-group">
+          <p class="nav-label">내 공간</p>
+          <a class="nav-item" href="profile-edit.html">내 프로필</a>
+          <a class="nav-item" href="index.html#saved">저장한 장면</a>
+        </nav>
+      </aside>
+
+      <section class="feed" aria-labelledby="feed-title">
+        <div class="feed-intro">
+          <h1 id="feed-title">오늘, 시선이 머문 곳</h1>
+          <p class="lead">사진을 좋아하는 사람들이 발견한 하루의 장면을 만나보세요.</p>
+        </div>
+        <nav class="feed-tabs" aria-label="피드 필터">
+          <a class="chip active" href="index.html">전체</a>
+          <a class="chip" href="index.html#street">거리</a>
+          <a class="chip" href="index.html#film">필름</a>
+          <a class="chip" href="index.html#landscape">풍경</a>
+          <a class="chip" href="index.html#night">야경</a>
+        </nav>
+
+        <div class="feed-list">
+          <article class="photo-card">
+            <div class="author-row">
+              <img class="avatar" src="../assets/image.png" alt="정지호 프로필" />
+              <div class="author-copy"><strong class="author-name">정지호</strong><time class="meta" datetime="2026-07-14T18:20:00+09:00">2시간 전</time></div>
+            </div>
+            <a class="photo-link" href="post-detail.html"><img src="../assets/post_img.png" alt="저녁 하늘 아래 펼쳐진 산 능선과 구름" /></a>
+            <div class="card-actions">
+              <button class="metric-button" type="button" aria-label="좋아요 128개">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6a5.5 5.5 0 0 0 1-8.8Z"/></svg>128
+              </button>
+              <a class="metric-button" href="post-detail.html#comments" aria-label="댓글 24개">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg>24
+              </a>
+              <button class="icon-button save-button" type="button" aria-label="저장">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>
+              </button>
+            </div>
+            <h2 class="post-title"><a href="post-detail.html">비가 그친 뒤, 잠시 열린 하늘</a></h2>
+            <p class="post-summary">퇴근길에 마주친 겹겹의 구름과 산 능선. 짧은 순간이라 더 오래 바라봤어요.</p>
+            <p class="post-tags">#풍경&nbsp;&nbsp;#노을&nbsp;&nbsp;#오늘의빛</p>
+          </article>
+
+          <article class="photo-card">
+            <div class="author-row">
+              <img class="avatar" src="../assets/image.png" alt="민서 프로필" />
+              <div class="author-copy"><strong class="author-name">민서</strong><time class="meta" datetime="2026-07-14T16:10:00+09:00">4시간 전</time></div>
+              <button class="follow" type="button">팔로우</button>
+            </div>
+            <a class="photo-link" href="post-detail.html"><img src="../assets/post_img.png" alt="빛이 번지는 저녁 풍경" /></a>
+            <div class="card-actions">
+              <button class="metric-button" type="button" aria-label="좋아요 76개">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6a5.5 5.5 0 0 0 1-8.8Z"/></svg>76
+              </button>
+              <a class="metric-button" href="post-detail.html#comments" aria-label="댓글 8개">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg>8
+              </a>
+              <button class="icon-button save-button" type="button" aria-label="저장">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>
+              </button>
+            </div>
+            <h2 class="post-title"><a href="post-detail.html">여름 저녁의 온도</a></h2>
+            <p class="post-summary">천천히 어두워지는 시간, 오늘의 빛을 한 장 남겼습니다.</p>
+            <p class="post-tags">#일상&nbsp;&nbsp;#풍경&nbsp;&nbsp;#여름</p>
+          </article>
+        </div>
+      </section>
+
+      <aside class="discovery" aria-label="오늘의 발견">
+        <section class="panel">
+          <p class="panel-kicker">오늘의 촬영 주제</p>
+          <h2>창문 너머의 빛</h2>
+          <p>익숙한 공간에 들어온 빛을 한 장으로 기록해보세요.</p>
+          <a class="button wide" href="post-create.html" style="margin-top:16px">참여하기</a>
+        </section>
+        <section class="panel">
+          <h2>추천 태그</h2>
+          <div class="tag-cloud"><a class="chip" href="#street">거리</a><a class="chip" href="#film">필름</a><a class="chip" href="#portrait">인물</a><a class="chip" href="#landscape">풍경</a><a class="chip" href="#night">야경</a><a class="chip" href="#light">일상의 빛</a></div>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>

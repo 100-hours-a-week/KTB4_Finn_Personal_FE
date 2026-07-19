@@ -1,0 +1,265 @@
+.home-layout {
+  display: grid;
+  grid-template-columns: 184px minmax(0, 760px) 300px;
+  gap: 40px;
+  align-items: start;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+.side-nav,
+.discovery {
+  position: sticky;
+  top: 112px;
+}
+
+.nav-group + .nav-group {
+  padding-top: 24px;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.nav-label {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-item:hover {
+  background: var(--surface-soft);
+}
+
+.nav-item.active {
+  background: var(--primary-soft);
+  color: var(--primary-deep);
+  font-weight: 600;
+}
+
+.nav-item.active::before {
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 20px;
+  border-radius: 3px;
+  background: var(--primary);
+  content: "";
+}
+
+.feed-intro h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+}
+
+.feed-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 28px 0 20px;
+  overflow-x: auto;
+}
+
+.feed-list {
+  display: grid;
+  gap: 36px;
+}
+
+.photo-card {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.author-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.author-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.author-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+.follow {
+  min-height: 44px;
+  padding: 0 8px;
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--primary-deep);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.photo-link {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+}
+
+.photo-link img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photo-link:hover img {
+  transform: scale(1.012);
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.metric-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-button:first-child {
+  margin-left: -8px;
+}
+
+.metric-button svg {
+  width: 21px;
+}
+
+.save-button {
+  margin-left: auto;
+}
+
+.post-title {
+  margin: 2px 0 4px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.post-summary {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.post-tags {
+  margin: 8px 0 0;
+  color: var(--primary-deep);
+  font-size: 13px;
+}
+
+.panel {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+}
+
+.panel + .panel {
+  margin-top: 16px;
+}
+
+.panel-kicker {
+  margin: 0 0 8px;
+  color: var(--primary-deep);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.panel p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+@media (max-width: 1180px) {
+  .home-layout {
+    grid-template-columns: 160px minmax(0, 760px);
+    justify-content: center;
+  }
+
+  .discovery {
+    display: none;
+  }
+}
+
+@media (max-width: 840px) {
+  .home-layout {
+    display: block;
+    max-width: 760px;
+    padding-top: 28px;
+  }
+
+  .side-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .feed-intro h1 {
+    font-size: 24px;
+    line-height: 33px;
+  }
+
+  .home-layout {
+    padding-top: 24px;
+  }
+
+  .photo-card {
+    padding-bottom: 24px;
+  }
+}
