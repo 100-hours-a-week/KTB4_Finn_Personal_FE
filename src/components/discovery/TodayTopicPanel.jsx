@@ -7,6 +7,11 @@ function TodayTopicPanel({ topic }) {
 
       <h2>{topic.title}</h2>
       <p>{topic.description}</p>
+
+      <a className="button wide topic-button" href="/posts/new">
+        참여하기
+      </a>
+      
     </section>
   );
 }

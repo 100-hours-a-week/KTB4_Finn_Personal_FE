@@ -74,6 +74,10 @@
   border-bottom: 1px solid var(--line);
 }
 
+.detail-metrics > .metric-button:first-child {
+  margin-left: -8px;
+}
+
 .comment-section {
   padding-top: 36px;
 }

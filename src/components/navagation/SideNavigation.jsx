@@ -1,28 +1,58 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SideNavigation() {
+  const [selectedMenu, setSelectedMenu] = useState("최근 장면");
+
   return (
     <aside className="side-nav" aria-label="피드 탐색">
       <nav className="nav-group">
         <p className="nav-label">피드</p>
-        <a className="nav-item active" href="/">
+
+        <button
+          type="button"
+          className={`nav-item ${
+            selectedMenu === "최근 장면" ? "active" : ""
+          }`}
+          onClick={() => setSelectedMenu("최근 장면")}
+        >
           최근 장면
-        </a>
-        <a className="nav-item" href="/#popular">
+        </button>
+
+        <button
+          type="button"
+          className={`nav-item ${
+            selectedMenu === "인기 기록" ? "active" : ""
+          }`}
+          onClick={() => setSelectedMenu("인기 기록")}
+        >
           인기 기록
-        </a>
-        <a className="nav-item" href="/#following">
+        </button>
+
+        {/* <button
+          type="button"
+          className={`nav-item ${
+            selectedMenu === "팔로잉" ? "active" : ""
+          }`}
+          onClick={() => setSelectedMenu("팔로잉")}
+        >
           팔로잉
-        </a>
+        </button> */}
       </nav>
 
       <nav className="nav-group">
         <p className="nav-label">내 공간</p>
-        <a className="nav-item" href="/settings/profile">
+
+        <Link
+          className="nav-item"
+          to="/settings/profile"
+        >
           내 프로필
-        </a>
-        <a className="nav-item" href="/#saved">
+        </Link>
+
+        {/* <a className="nav-item" href="/#saved">
           저장한 장면
-        </a>
+        </a> */}
       </nav>
     </aside>
   );

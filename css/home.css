@@ -47,7 +47,14 @@
   color: var(--primary-deep);
   font-weight: 600;
 }
-
+button.nav-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
 .nav-item.active::before {
   position: absolute;
   left: 0;
@@ -75,6 +82,8 @@
 .feed-list {
   display: grid;
   gap: 36px;
+
+  margin-top: 28px; /*tag-tab 추가 시 삭제*/
 }
 
 .photo-card {
@@ -143,26 +152,8 @@
   padding-top: 8px;
 }
 
-.metric-button {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  gap: 6px;
-  padding: 0 8px;
-  border: 0;
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-}
-
-.metric-button:first-child {
+.card-actions > .metric-button:first-child {
   margin-left: -8px;
-}
-
-.metric-button svg {
-  width: 21px;
 }
 
 .save-button {
@@ -213,7 +204,7 @@
 }
 
 .panel p {
-  margin: 8px 0 0;
+  margin: 8px 0;
   color: var(--muted);
   font-size: 13px;
   line-height: 19px;

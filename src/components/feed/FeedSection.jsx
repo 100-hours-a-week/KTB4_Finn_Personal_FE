@@ -1,7 +1,9 @@
 import FeedTabs from "./FeedTab.jsx";
 import FeedList from "./FeedList.jsx";
+import { useState } from "react";
 
 function FeedSection({ posts }) {
+
   return (
     <section className="feed" aria-labelledby="feed-title">
       <div className="feed-intro">
@@ -11,7 +13,7 @@ function FeedSection({ posts }) {
         </p>
       </div>
 
-      <FeedTabs />
+      {/* <FeedTabs /> */}
 
       <FeedList posts={posts} />
     </section>

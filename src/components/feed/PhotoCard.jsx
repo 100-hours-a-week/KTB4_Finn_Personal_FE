@@ -1,4 +1,7 @@
 import LikeButton from "./LikeButton";
+import CommentIcon from "../icons/CommentIcon.jsx";
+import {Link} from "react-router-dom";
+
 function PhotoCard({ post }) {
   return (
     <article className="photo-card">
@@ -19,15 +22,16 @@ function PhotoCard({ post }) {
         </div>
       </div>
 
-      <a
+      <Link
         className="photo-link"
-        href={`/posts/${post.id}`}
+        to={`/posts/${post.id}`}
       >
         <img
           src={post.imageUrl}
           alt={post.title}
         />
-      </a>
+      </Link>
+
 
       <div className="card-actions">
         <LikeButton
@@ -36,6 +40,7 @@ function PhotoCard({ post }) {
         />
 
         <span className="metric-button">
+          <CommentIcon />
           댓글 {post.commentCount}
         </span>
       </div>

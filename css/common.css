@@ -5,6 +5,7 @@
   --primary-pressed: #1fb1db;
   --primary-deep: #0e8fb8;
   --primary-soft: #e8f7fd;
+  --like: #1fb1db;
   --ink: #222;
   --text: #555;
   --muted: #888;
@@ -165,6 +166,48 @@ img {
   object-fit: cover;
 }
 
+.profile-menu {
+  position: relative;
+}
+
+.profile-menu-button {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 140px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.profile-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profile-dropdown-item:hover {
+  background: var(--surface-soft);
+}
+
 .button {
   display: inline-flex;
   min-height: 44px;
@@ -222,6 +265,30 @@ img {
   color: var(--placeholder);
   cursor: not-allowed;
   transform: none;
+}
+
+.metric-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-button.active {
+  color: var(--like);
+}
+
+.metric-button svg {
+  width: 21px;
+  height: 21px;
+  flex: none;
 }
 
 .icon-button {

@@ -1,34 +1,55 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
+
 function HeaderActions({ currentUser }) {
+
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   return (
     <div className="header-actions">
-      <a className="button" href="/posts/new">
+
+      <Link className="button" to="/posts/new">
         기록 올리기
-      </a>
+      </Link>
 
-      <a href="/settings/profile" aria-label="내 프로필">
-        <img
-          className="avatar"
-          src={currentUser.profileImageUrl}
-          alt={`${currentUser.nickname} 프로필`}
-        />
-      </a>
+      <div className="profile-menu">
+        <button
+          className="profile-menu-button"
+          type="button"
+          aria-label="프로필 메뉴 열기"
+          aria-haspopup="menu"
+          aria-expanded={isProfileMenuOpen}
+          onClick={() =>
+            setIsProfileMenuOpen((isOpen) => !isOpen)
+          }
+        >
+          <img
+            className="avatar"
+            src={currentUser.profileImageUrl}
+            alt={`${currentUser.nickname} 프로필`}
+          />
+        </button>
+
+        {isProfileMenuOpen && (
+          <div className="profile-dropdown" role="menu">
+            <Link
+              className="profile-dropdown-item"
+              to="/settings/profile"
+              role="menuitem"
+            >
+              내 프로필
+            </Link>
+
+            <button
+              className="profile-dropdown-item"
+              type="button"
+              role="menuitem"
+            >
+              로그아웃
+            </button>
+          </div>
+        )}
+      </div>
     </div>
-  );
-}
-
-function SearchBar() {
-  return (
-    <form className="search-bar" role="search">
-      <label className="sr-only" htmlFor="site-search">
-        장면 검색
-      </label>
-      <input
-        id="site-search"
-        name="query"
-        type="search"
-        placeholder="장면을 검색해보세요"
-      />
-    </form>
   );
 }
 
@@ -37,11 +58,12 @@ function Header({ currentUser }) {
   return (
     <header className="topbar">
       <div className="topbar-inner container-inner">
-        <a className="brand" href="/">
+        <Link
+          className="brand"
+          to="/"
+        >
           FOCAL<span className="brand-dot">.</span>
-        </a>
-
-        <SearchBar />
+        </Link>
 
         <HeaderActions currentUser={currentUser} />
       </div>

@@ -6,7 +6,9 @@ import postImage from "../assets/post_img.png";
 export const currentUser = {
   id: 1,
   nickname: "정지호",
+  email: "jiho1741@gmail.com",
   profileImageUrl: profileImage,
+  introduction: "빛이 머문 풍경을 천천히 기록합니다.",
 };
 
 export const mockPosts = [
@@ -23,9 +25,20 @@ export const mockPosts = [
       profileImageUrl: profileImage,
     },
     likeCount: 128,
-    likedByMe: false,
-    commentCount: 24,
+    isLiked: false,
+    commentCount: 1,
     tags: ["풍경", "노을", "오늘의빛"],
+    comments: [
+      {
+        id: 1,
+        content: "구름 사이의 빛이 정말 좋네요.",
+        createdAtLabel: "1시간 전",
+        author: {
+          nickname: "소연",
+          profileImageUrl: profileImage,
+        },
+      },
+    ],  
   },
   {
     id: 2,
