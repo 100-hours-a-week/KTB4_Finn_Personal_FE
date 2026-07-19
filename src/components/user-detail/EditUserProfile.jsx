@@ -1,3 +1,5 @@
+import Avatar from "../common/Avatar.jsx";
+
 function EditUserProfile({currentUser}) {
     const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,9 +29,9 @@ function EditUserProfile({currentUser}) {
           className="profile-photo"
           htmlFor="edit-profile-photo"
         >
-          <img
+          <Avatar
             src={currentUser.profileImageUrl}
-            alt="현재 프로필 사진"
+            nickname ={currentUser.nickname}
           />
           <span>사진 변경</span>
         </label>

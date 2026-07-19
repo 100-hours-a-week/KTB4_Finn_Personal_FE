@@ -1,5 +1,6 @@
 import LikeButton from "../feed/LikeButton.jsx";
 import CommentIcon from "../icons/CommentIcon.jsx";
+import Avatar from "../common/Avatar.jsx";
 
 function PostDetail({ post, isMyPost }) {
   return (
@@ -28,10 +29,9 @@ function PostDetail({ post, isMyPost }) {
         </div>
 
         <div className="detail-author">
-          <img
-            className="avatar"
+          <Avatar
             src={post.author.profileImageUrl}
-            alt={`${post.author.nickname} 프로필`}
+            nickname ={post.author.nickname}
           />
 
           <div className="author-copy">

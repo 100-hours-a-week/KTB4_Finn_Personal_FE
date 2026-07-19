@@ -1,13 +1,13 @@
 // src/data/mockData.js
 
-import profileImage from "../assets/image.png";
+
 import postImage from "../assets/post_img.png";
 
 export const currentUser = {
   id: 1,
   nickname: "정지호",
   email: "jiho1741@gmail.com",
-  profileImageUrl: profileImage,
+  profileImageUrl: null,
   introduction: "빛이 머문 풍경을 천천히 기록합니다.",
 };
 
@@ -22,7 +22,7 @@ export const mockPosts = [
     author: {
       id: 1,
       nickname: "정지호",
-      profileImageUrl: profileImage,
+      profileImageUrl: null,
     },
     likeCount: 128,
     isLiked: false,
@@ -35,7 +35,7 @@ export const mockPosts = [
         createdAtLabel: "1시간 전",
         author: {
           nickname: "소연",
-          profileImageUrl: profileImage,
+          profileImageUrl: null,
         },
       },
     ],  
@@ -50,7 +50,7 @@ export const mockPosts = [
     author: {
       id: 2,
       nickname: "민서",
-      profileImageUrl: profileImage,
+      profileImageUrl: null,
     },
     likeCount: 76,
     likedByMe: false,

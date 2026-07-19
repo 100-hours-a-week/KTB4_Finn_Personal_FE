@@ -1,15 +1,15 @@
 import LikeButton from "./LikeButton";
 import CommentIcon from "../icons/CommentIcon.jsx";
 import {Link} from "react-router-dom";
+import Avatar from "../common/Avatar.jsx";
 
 function PhotoCard({ post }) {
   return (
     <article className="photo-card">
       <div className="author-row">
-        <img
-          className="avatar"
+        <Avatar
           src={post.author.profileImageUrl}
-          alt={`${post.author.nickname} 프로필`}
+          nickname ={post.author.nickname}
         />
 
         <div className="author-copy">

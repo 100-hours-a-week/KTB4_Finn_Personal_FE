@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Avatar from "../common/Avatar.jsx";
 
 function HeaderActions({ currentUser }) {
 
@@ -22,10 +23,10 @@ function HeaderActions({ currentUser }) {
             setIsProfileMenuOpen((isOpen) => !isOpen)
           }
         >
-          <img
-            className="avatar"
+
+          <Avatar
             src={currentUser.profileImageUrl}
-            alt={`${currentUser.nickname} 프로필`}
+            nickname ={currentUser.nickname}
           />
         </button>
 

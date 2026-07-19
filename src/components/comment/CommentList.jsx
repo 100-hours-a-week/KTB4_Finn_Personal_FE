@@ -1,12 +1,14 @@
+import Avatar from "../common/Avatar.jsx";
+
 function CommentList({ comment }) {
   return (
     <article className="comment">
       <header className="comment-header">
-        <img
-          className="avatar"
+        <Avatar
           src={comment.author.profileImageUrl}
-          alt={`${comment.author.nickname} 프로필`}
+          nickname ={comment.author.nickname}
         />
+        
 
         <div className="author-copy">
           <strong className="author-name">

@@ -25,7 +25,7 @@ function PostDetailPage() {
           <h1>게시물을 찾을 수 없습니다.</h1>
 
           <Link className="back-link" to="/">
-            피드로 돌아가기
+            ← 피드로 돌아가기
           </Link>
         </main>
       </>
@@ -37,7 +37,7 @@ function PostDetailPage() {
 
       <main className="detail-shell container-inner">
         <Link className="back-link" to="/">
-          {'<' + ' 피드로 돌아가기'}
+          ← 피드로 돌아가기
         </Link>
 
         <PostDetail
