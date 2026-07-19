@@ -39,13 +39,13 @@ function HeaderActions({ currentUser, showCreatePostButton }) {
               내 프로필
             </Link>
 
-            <button
+            <Link
               className="profile-dropdown-item"
-              type="button"
+              to="/login"
               role="menuitem"
             >
               로그아웃
-            </button>
+            </Link>
           </div>
         )}
       </div>
@@ -54,7 +54,7 @@ function HeaderActions({ currentUser, showCreatePostButton }) {
 }
 
 
-function Header({ currentUser, showCreatePostButton = true }) {
+function Header({ currentUser, showCreatePostButton = true, showProfile = true }) {
   return (
     <header className="topbar">
       <div className="topbar-inner container-inner">
@@ -65,7 +65,12 @@ function Header({ currentUser, showCreatePostButton = true }) {
           FOCAL<span className="brand-dot">.</span>
         </Link>
 
-        <HeaderActions currentUser={currentUser} showCreatePostButton={showCreatePostButton} />
+        {showProfile && currentUser && (
+          <HeaderActions 
+            currentUser={currentUser} showCreatePostButton={showCreatePostButton} 
+          />
+        )}
+        
       </div>
     </header>
   );
