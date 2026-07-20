@@ -1,13 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../components/layout/Header.jsx";
 import EditUserProfile from "../components/user-detail/EditUserProfile.jsx";
 import EditPassword from "../components/user-detail/EditPassword.jsx";
-import { currentUser } from "../data/mockData.js";
+import { getUserInfo } from "../api/userInfo.js";
+//import { currentUser } from "../data/mockData.js";
 
 function ProfileEditPage() {
   const [activeTab, setActiveTab] = useState("profile");
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        setIsLoading(true);
+
+        const response = await getUserInfo();
+        setCurrentUser(response.data);
+      } catch (error) {
+        console.error("요청 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
 
   return (
     <div className="settings-page">
@@ -37,7 +58,19 @@ function ProfileEditPage() {
             </button>
           </nav>
 
-          {activeTab === "profile" && <EditUserProfile currentUser={currentUser} />}
+          {activeTab === "profile" && (
+              isLoading ? (
+                <div className="settings-loading" role="status" aria-live="polite">
+                  <div className="loading-spinner" aria-hidden="true" />
+                  <strong>프로필을 불러오고 있어요</strong>
+                  <p>잠시만 기다려 주세요.</p>
+                </div>
+              ) : currentUser ? (
+                <EditUserProfile currentUser={currentUser} />
+              ) : (
+                <p>사용자 정보를 불러오지 못했습니다.</p>
+              )
+          )}
           {activeTab === "password" && <EditPassword />}
         </section>
       </main>

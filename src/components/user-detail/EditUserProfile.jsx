@@ -30,7 +30,7 @@ function EditUserProfile({currentUser}) {
           htmlFor="edit-profile-photo"
         >
           <Avatar
-            src={currentUser.profileImageUrl}
+            src={currentUser.profileImg}
             nickname ={currentUser.nickname}
           />
           <span>사진 변경</span>

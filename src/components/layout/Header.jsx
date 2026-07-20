@@ -1,8 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Avatar from "../common/Avatar.jsx";
+import { logout } from "../../api/auth/auth.js";
 
 function HeaderActions({ currentUser, showCreatePostButton }) {
+
+  const navigate = useNavigate();
+  const [isLogOut, setIsLogOut] = useState(false);
+
+  const handleLogout = async () => {
+    if(isLogOut){
+      return;
+    }
+
+    try{
+      setIsLogOut(true);
+      await logout();
+      navigate("/login", { replace: true });
+    }catch(error){
+      console.log("로그아웃 실패 : ", error);
+    }finally{
+      setIsLogOut(false);
+    }
+  }
 
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   return (
@@ -39,13 +59,15 @@ function HeaderActions({ currentUser, showCreatePostButton }) {
               내 프로필
             </Link>
 
-            <Link
+            <button
+              type="button"
               className="profile-dropdown-item"
-              to="/login"
               role="menuitem"
+              onClick={handleLogout}
+              disabled={isLogOut}
             >
-              로그아웃
-            </Link>
+              {isLogOut ? "로그아웃 중..." : "로그아웃"}
+            </button>
           </div>
         )}
       </div>

@@ -3,6 +3,9 @@ import Header from "../components/layout/Header";
 import LoginForm from "../components/auth/LoginForm";
 import { Link, useNavigate } from "react-router-dom";
 
+import { login } from "../api/auth/auth";
+import { ApiError } from "../api/common";
+
 function LoginPage(){
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -13,16 +16,26 @@ function LoginPage(){
         setError("");
 
         try{
+            const response = await login({email, password});
+            localStorage.setItem("accessToken", response.data.token.accessToken);
             navigate("/", {replace:true});
-        }catch{
-            setError("이메일 또는 비밀번호가 일치하지 않습니다.");
+        }catch(error){
+            if(error instanceof ApiError){
+                if(error.status === 401){
+                    setError("이메일 또는 비밀번호가 일치하지 않습니다.");
+                }else{
+                    setError(error.message);
+                }
+            }else{
+                setError("서버 연결 불가");
+            }
         }finally{
             setIsSubmitting(false);
         }
     };
 
     return(
-        <>
+        <>  
             <Header showProfile={false} />
             <main className="auth-shell container-inner">
                 <section
