@@ -35,7 +35,8 @@ function PhotoCard({ post }) {
 
       <div className="card-actions">
         <LikeButton
-          liked={post.likedByMe}
+          postId={post.postId}
+          liked={post.like !==null}
           count={post.likeCount}
         />
 

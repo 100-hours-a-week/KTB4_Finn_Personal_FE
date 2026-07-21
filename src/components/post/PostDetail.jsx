@@ -66,7 +66,8 @@ function PostDetail({ post, isMyPost }) {
         aria-label="게시물 반응"
       >
         <LikeButton
-          liked={post.likedByMe}
+          postId={post.postId}
+          liked={post.like !== null}
           count={post.likeCount}
         />
 
