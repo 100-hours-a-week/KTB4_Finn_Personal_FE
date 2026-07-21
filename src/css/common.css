@@ -377,6 +377,10 @@ img {
   line-height: 17px;
 }
 
+.helper.error {
+  color: var(--danger);
+}
+
 .back-link {
   display: inline-flex;
   min-height: 44px;

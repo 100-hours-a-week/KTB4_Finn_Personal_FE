@@ -3,18 +3,43 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../components/layout/Header.jsx";
 import PostDetail from "../components/post/PostDetail.jsx";
 import CommentSection from "../components/comment/CommentSection.jsx";
+import { useState } from "react";
 
 import {
   currentUser,
   mockPosts,
 } from "../data/mockData.js";
+import { useEffect } from "react";
+import { getPostDetail } from "../api/post/post.js";
 
 function PostDetailPage() {
   const { postId } = useParams();
 
-  const post = mockPosts.find(
-    (post) => post.id === Number(postId),
-  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    const fetchPostInfo = async () => {
+      try{
+        setIsLoading(true);
+
+        const response = await getPostDetail(Number(postId));
+        console.log("postId : ", postId);
+        console.log("response: ", response.data);
+        setPost(response.data);
+      }catch(error){
+        console.log("게시물 요청 실패 : ", error);
+      }finally{
+        setIsLoading(false);
+      }
+    };
+    fetchPostInfo();
+  }, [postId]);
+
+  if (isLoading) {
+    return <p>게시물을 불러오는 중입니다...</p>;
+  }
+
 
   if (!post) {
     return (
@@ -42,7 +67,7 @@ function PostDetailPage() {
 
         <PostDetail
           post={post}
-          isMyPost={post.author.id === currentUser.id}
+          isMyPost={post.isMine}
         />
 
         <CommentSection

@@ -3,8 +3,20 @@ import Header from "../layout/Header";
 import { Link } from "react-router-dom";
 import {useState} from "react";
 
-function PostForm({mode, initValues, onSubmit}){
+function PostForm({mode, initValues, onSubmit, isSubmitting}){
     const isEdit = mode === "edit";
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(event.currentTarget);
+
+      onSubmit?.({
+        title: formData.get("title"),
+        content: formData.get("description"),
+        contentImg: formData.get("photo"),
+      });
+    };
 
 
     return (
@@ -12,7 +24,7 @@ function PostForm({mode, initValues, onSubmit}){
       <h1>{isEdit ? "기록 수정" : "새 기록"}</h1>
       <p className="lead">{isEdit ? "장면의 제목과 이야기를 다듬을 수 있어요." : "오늘 시선이 머문 장면을 사진과 함께 남겨보세요."}</p>
 
-      <form className="editor-form" onSubmit={onSubmit} method="post">
+      <form className="editor-form" onSubmit={handleSubmit} method="post">
           <div className="field">
             <label htmlFor="create-title">제목</label>
             <input
@@ -72,15 +84,15 @@ function PostForm({mode, initValues, onSubmit}){
               name="photo"
               type="file"
               accept="image/jpeg,image/png"
-              required
             />
           </div>
           <div className="form-actions">
             <Link className="button outline" to="/">
             취소
             </Link>
-            <button className="button" type="submit">
-                {isEdit ? "수정 완료" : "기록 올리기"}
+            <button className="button" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "업로드 중..."
+                : mode === "edit" ? "수정 완료" : "기록 올리기"}
             </button>
           </div>
         </form>

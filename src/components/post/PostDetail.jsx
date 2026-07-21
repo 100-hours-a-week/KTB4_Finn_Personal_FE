@@ -32,17 +32,16 @@ function PostDetail({ post, isMyPost }) {
 
         <div className="detail-author">
           <Avatar
-            src={post.author.profileImageUrl}
-            nickname ={post.author.nickname}
+            src={post.profileImg}
           />
 
           <div className="author-copy">
             <strong className="author-name">
-              {post.author.nickname}
+              {post.username}
             </strong>
 
             <time className="meta">
-              {post.createdAtLabel}
+              {post.createdAt}
             </time>
           </div>
         </div>
@@ -50,18 +49,17 @@ function PostDetail({ post, isMyPost }) {
 
       <img
         className="detail-photo"
-        src={post.imageUrl}
-        alt={post.title}
+        src={post.contentImg}
       />
 
       <p className="detail-copy">
-        {post.description}
+        {post.content}
       </p>
 
       <p className="detail-tags">
-        {post.tags
+        {/* {post.tags
           .map((tag) => `#${tag}`)
-          .join("  ")}
+          .join("  ")} */}
       </p>
 
       <div

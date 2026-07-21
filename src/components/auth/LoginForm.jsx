@@ -38,16 +38,17 @@ function LoginForm({ onSubmit, isSubmitting = false, error = "" }) {
           value={password}
           placeholder="비밀번호를 입력하세요"
           autoComplete="current-password"
+          aria-describedby={error ? "login-error" : undefined}
+          aria-invalid={Boolean(error)}
           onChange={(event) => setPassword(event.target.value)}
           required
         />
+        {error && (
+          <p id="login-error" className="helper error" role="alert">
+            {error}
+          </p>
+        )}
       </div>
-
-      {error && (
-        <p className="form-error" role="alert">
-          {error}
-        </p>
-      )}
 
       <button
         className="button wide"
