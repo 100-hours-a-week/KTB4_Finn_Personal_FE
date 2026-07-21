@@ -89,6 +89,30 @@
   font-size: 12px;
 }
 
+.selected-photo {
+  grid-template-columns: 140px minmax(0, 1fr) auto;
+  margin-bottom: 12px;
+}
+
+.selected-photo-copy {
+  min-width: 0;
+}
+
+.selected-photo-copy p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-photo-remove {
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.input-error {
+  color: var(--critical, #c33a2c);
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -112,6 +136,18 @@
 
   .upload-box {
     min-height: 200px;
+  }
+
+  .selected-photo {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  .selected-photo img {
+    width: 88px;
+  }
+
+  .selected-photo-remove {
+    grid-column: 1 / -1;
   }
 
   .form-actions .button {

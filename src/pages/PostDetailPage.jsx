@@ -4,6 +4,9 @@ import Header from "../components/layout/Header.jsx";
 import PostDetail from "../components/post/PostDetail.jsx";
 import CommentSection from "../components/comment/CommentSection.jsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { getCommentByPostId,registerComment } from "../api/comment/comment.js";
 
 import {
   currentUser,
@@ -17,16 +20,37 @@ function PostDetailPage() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState(null);
+  const [commentInfo, setCommentInfo] = useState([]);
+
+  const navigate = useNavigate();
+  
+  const handleCreateComment = async (content) => {
+    try{
+      await registerComment({
+        postId : Number(postId), 
+        content
+      });
+
+      const response = await getCommentByPostId(Number(postId));
+      setCommentInfo(response.data.comments);
+      
+    }catch(error){
+      console.log("댓글 작성 실패 : ", error);
+    }
+    
+  }
 
   useEffect(() => {
     const fetchPostInfo = async () => {
       try{
         setIsLoading(true);
 
-        const response = await getPostDetail(Number(postId));
-        console.log("postId : ", postId);
-        console.log("response: ", response.data);
-        setPost(response.data);
+        const postInfoResponse = await getPostDetail(Number(postId));
+        setPost(postInfoResponse.data);
+
+        const commentInfoResponse = await getCommentByPostId(Number(postId));
+        setCommentInfo(commentInfoResponse.data.comments);
+
       }catch(error){
         console.log("게시물 요청 실패 : ", error);
       }finally{
@@ -71,8 +95,8 @@ function PostDetailPage() {
         />
 
         <CommentSection
-          comments={post.comments ?? []}
-          commentCount={post.commentCount}
+          commentsInfo={commentInfo}
+          onCreateComment={handleCreateComment}
         />
       </main>
     </>

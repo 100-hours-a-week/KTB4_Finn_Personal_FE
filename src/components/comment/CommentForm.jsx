@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 function CommentForm({ onSubmit }) {
-  const [content, setContent] = useState("");
+    const [content, setContent] = useState("");
 
-  const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
     event.preventDefault();
 
     const trimmedContent = content.trim();
@@ -12,8 +12,12 @@ function CommentForm({ onSubmit }) {
       return;
     }
 
-    onSubmit?.(trimmedContent);
-    setContent("");
+    try {
+      await onSubmit?.(trimmedContent);
+      setContent("");
+    } catch (error) {
+      console.error("댓글 제출 실패:", error);
+    }
   };
 
   return (

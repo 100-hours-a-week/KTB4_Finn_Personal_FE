@@ -73,7 +73,7 @@ function PostDetail({ post, isMyPost }) {
 
         <span className="metric-button">
           <CommentIcon />
-          댓글 {post.commentCount}
+          조회수 {post.viewCount}
         </span>
       </div>
     </article>

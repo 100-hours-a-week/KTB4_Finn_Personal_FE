@@ -1,10 +1,72 @@
-import { currentUser } from "../../data/mockData";
-import Header from "../layout/Header";
 import { Link } from "react-router-dom";
-import {useState} from "react";
+import { useEffect, useRef, useState } from "react";
+
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) {
+    return `${bytes} B`;
+  }
+
+  if (bytes < 1024 * 1024) {
+    return `${Math.round(bytes / 1024)} KB`;
+  }
+
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 function PostForm({mode, initValues, onSubmit, isSubmitting}){
     const isEdit = mode === "edit";
+    const fileInputRef = useRef(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imageError, setImageError] = useState("");
+
+    useEffect(() => {
+      return () => {
+        if (selectedImage?.previewUrl) {
+          URL.revokeObjectURL(selectedImage.previewUrl);
+        }
+      };
+    }, [selectedImage]);
+
+    const handleImageChange = (event) => {
+      const file = event.target.files?.[0];
+
+      setImageError("");
+
+      if (!file) {
+        setSelectedImage(null);
+        return;
+      }
+
+      if (!file.type.startsWith("image/")) {
+        event.target.value = "";
+        setSelectedImage(null);
+        setImageError("이미지 파일만 첨부할 수 있어요.");
+        return;
+      }
+
+      if (file.size > MAX_IMAGE_SIZE) {
+        event.target.value = "";
+        setSelectedImage(null);
+        setImageError("10MB 이하의 이미지만 첨부할 수 있어요.");
+        return;
+      }
+
+      setSelectedImage({
+        file,
+        previewUrl: URL.createObjectURL(file),
+      });
+    };
+
+    const handleImageRemove = () => {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+
+      setSelectedImage(null);
+      setImageError("");
+    };
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -61,6 +123,27 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
           </div>
           <div className="field">
             <span className="field-label">사진</span>
+            {selectedImage && (
+              <div className="current-photo selected-photo">
+                <img
+                  src={selectedImage.previewUrl}
+                  alt="선택한 게시물 사진 미리보기"
+                />
+                <div className="selected-photo-copy">
+                  <p>{selectedImage.file.name}</p>
+                  <span>
+                    선택한 사진 · {formatFileSize(selectedImage.file.size)}
+                  </span>
+                </div>
+                <button
+                  className="button outline selected-photo-remove"
+                  type="button"
+                  onClick={handleImageRemove}
+                >
+                  제거
+                </button>
+              </div>
+            )}
             <label className="upload-box" htmlFor="create-photo">
               <span>
                 <svg
@@ -74,17 +157,28 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
                   <rect x="3" y="3" width="18" height="18" rx="2" />
                   <circle cx="8.5" cy="8.5" r="1.5" />
                 </svg>
-                <strong>사진을 선택하거나 이곳에 놓아주세요</strong>
+                <strong>
+                  {selectedImage
+                    ? "다른 사진으로 변경하기"
+                    : "사진을 선택해주세요"}
+                </strong>
                 <span>JPG, PNG · 최대 10MB</span>
               </span>
             </label>
             <input
+              ref={fileInputRef}
               className="sr-only"
               id="create-photo"
               name="photo"
               type="file"
               accept="image/jpeg,image/png"
+              onChange={handleImageChange}
             />
+            {imageError && (
+              <p className="helper input-error" role="alert">
+                {imageError}
+              </p>
+            )}
           </div>
           <div className="form-actions">
             <Link className="button outline" to="/">

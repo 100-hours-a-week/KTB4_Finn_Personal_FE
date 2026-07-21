@@ -2,9 +2,14 @@ import CommentForm from "./CommentForm.jsx";
 import CommentList from "./CommentList.jsx";
 
 function CommentSection({
-  comments,
-  commentCount,
+  commentsInfo,
+  onCreateComment,
+  onEditComment,
+  onDeleteComment,
 }) {
+
+  const commentCount = commentsInfo.length;
+
   return (
     <section
       id="comments"
@@ -15,14 +20,16 @@ function CommentSection({
         댓글 {commentCount}
       </h2>
 
-      <CommentForm />
+      <CommentForm onSubmit={onCreateComment} />
 
       <div className="comment-list">
-        {comments.length > 0 ? (
-          comments.map((comment) => (
+        {commentsInfo.length > 0 ? (
+          commentsInfo.map((comment) => (
             <CommentList
               key={comment.id}
               comment={comment}
+              onEdit={onEditComment}
+              onDelete={onDeleteComment}
             />
           ))
         ) : (

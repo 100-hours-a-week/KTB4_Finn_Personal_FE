@@ -61,6 +61,7 @@ function PostFormPage({mode}){
                     mode={mode}
                     initValues={isEdit ? null : null}
                     onSubmit={isEdit ? null : handleCreate}
+                    isSubmitting={isSubmitting}
                 />
             </main>
 
