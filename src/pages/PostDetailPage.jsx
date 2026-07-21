@@ -6,7 +6,7 @@ import CommentSection from "../components/comment/CommentSection.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getCommentByPostId,registerComment } from "../api/comment/comment.js";
+import { deleteComment, getCommentByPostId,registerComment, updateComment } from "../api/comment/comment.js";
 
 import {
   currentUser,
@@ -37,7 +37,30 @@ function PostDetailPage() {
     }catch(error){
       console.log("댓글 작성 실패 : ", error);
     }
-    
+  }
+  const handleEditComment = async(commentId, content) => {
+    try{
+      await updateComment({
+        commentId,
+        content : content
+      });
+      const response = await getCommentByPostId(Number(postId));
+      setCommentInfo(response.data.comments);
+    }catch(error){
+      console.log("댓글 수정 실패 : ", error);
+      throw error;
+    }
+  }
+
+  const handleDeleteComment = async(commentId) => {
+    try{
+      await deleteComment(commentId);
+      const response = await getCommentByPostId(Number(postId));
+      setCommentInfo(response.data.comments);
+    }catch(error){
+      console.log("댓글 삭제 실패 : ", error);
+      throw error;
+    }
   }
 
   useEffect(() => {
@@ -97,6 +120,8 @@ function PostDetailPage() {
         <CommentSection
           commentsInfo={commentInfo}
           onCreateComment={handleCreateComment}
+          onEditComment={handleEditComment}
+          onDeleteComment={handleDeleteComment}
         />
       </main>
     </>

@@ -1,5 +1,4 @@
 import LikeButton from "../feed/LikeButton.jsx";
-import CommentIcon from "../icons/CommentIcon.jsx";
 import Avatar from "../common/Avatar.jsx";
 import { Link } from "react-router-dom";
 
@@ -72,7 +71,16 @@ function PostDetail({ post, isMyPost }) {
         />
 
         <span className="metric-button">
-          <CommentIcon />
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+            <circle cx="12" cy="12" r="2.5" />
+          </svg>
           조회수 {post.viewCount}
         </span>
       </div>
