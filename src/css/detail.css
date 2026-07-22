@@ -116,6 +116,18 @@
   margin-top: 16px;
 }
 
+.comment-list .empty-message {
+  margin: 0;
+  padding: 36px 20px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--canvas);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+}
+
 .comment {
   padding: 20px 0;
   border-bottom: 1px solid var(--line);

@@ -22,10 +22,13 @@ function PostFormPage({mode}){
         contentImg,
     }) => {
         try{
+            let contentImgUrl = null;
             setIsSubmitting(true);
 
-            const uploadImageResponse = await registerPostImage(contentImg);
-            const contentImgUrl = uploadImageResponse.data.imageUrl;
+            if(contentImg){
+                const uploadImageResponse = await registerPostImage(contentImg);
+                contentImgUrl = uploadImageResponse.data.imageUrl;   
+            }
 
             const createdPostResponse = await createPost({
                 title : title,

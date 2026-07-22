@@ -76,7 +76,7 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
       onSubmit?.({
         title: formData.get("title"),
         content: formData.get("description"),
-        contentImg: formData.get("photo"),
+        contentImg: selectedImage?.file ?? null,
       });
     };
 
