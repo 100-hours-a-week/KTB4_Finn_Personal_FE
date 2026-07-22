@@ -14,7 +14,7 @@ function PostDetail({ post, isMyPost }) {
               
               <Link
                 className="button outline"
-                to={`/posts/edit/${post.id}`}
+                to={`/posts/edit/${post.postId}`}
               >
                 수정
               </Link>

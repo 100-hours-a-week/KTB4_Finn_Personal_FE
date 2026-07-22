@@ -18,12 +18,23 @@ function formatFileSize(bytes) {
 function PostForm({mode, initValues, onSubmit, isSubmitting}){
     const isEdit = mode === "edit";
     const fileInputRef = useRef(null);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(() => {
+      if (!isEdit || !initValues?.contentImg) {
+        return null;
+      }
+
+      return {
+        file: null,
+        previewUrl: initValues.contentImg,
+        existingUrl: initValues.contentImg,
+        isObjectUrl: false,
+      };
+    });
     const [imageError, setImageError] = useState("");
 
     useEffect(() => {
       return () => {
-        if (selectedImage?.previewUrl) {
+        if (selectedImage?.isObjectUrl) {
           URL.revokeObjectURL(selectedImage.previewUrl);
         }
       };
@@ -35,20 +46,17 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
       setImageError("");
 
       if (!file) {
-        setSelectedImage(null);
         return;
       }
 
       if (!file.type.startsWith("image/")) {
         event.target.value = "";
-        setSelectedImage(null);
         setImageError("이미지 파일만 첨부할 수 있어요.");
         return;
       }
 
       if (file.size > MAX_IMAGE_SIZE) {
         event.target.value = "";
-        setSelectedImage(null);
         setImageError("10MB 이하의 이미지만 첨부할 수 있어요.");
         return;
       }
@@ -56,12 +64,15 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
       setSelectedImage({
         file,
         previewUrl: URL.createObjectURL(file),
+        existingUrl: null,
+        isObjectUrl: true,
       });
     };
 
     const handleImageRemove = () => {
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
+        
       }
 
       setSelectedImage(null);
@@ -76,7 +87,7 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
       onSubmit?.({
         title: formData.get("title"),
         content: formData.get("description"),
-        contentImg: selectedImage?.file ?? null,
+        contentImg: selectedImage?.file ?? selectedImage?.existingUrl ?? null,
       });
     };
 
@@ -116,7 +127,7 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
             <textarea
               id="create-description"
               name="description"
-              defaultValue={isEdit ? initValues.description : ""}
+              defaultValue={isEdit ? initValues.content : ""}
               placeholder="이 장면에 담긴 순간을 들려주세요"
               required
             ></textarea>
@@ -130,10 +141,14 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
                   alt="선택한 게시물 사진 미리보기"
                 />
                 <div className="selected-photo-copy">
-                  <p>{selectedImage.file.name}</p>
-                  <span>
-                    선택한 사진 · {formatFileSize(selectedImage.file.size)}
-                  </span>
+                  <p>{selectedImage.file?.name ?? "현재 게시물 사진"}</p>
+                  {selectedImage.file ? (
+                    <span>
+                      선택한 사진 · {formatFileSize(selectedImage.file.size)}
+                    </span>
+                  ) : (
+                    <span>현재 등록된 사진</span>
+                  )}
                 </div>
                 <button
                   className="button outline selected-photo-remove"
@@ -181,8 +196,11 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
             )}
           </div>
           <div className="form-actions">
-            <Link className="button outline" to="/">
-            취소
+            <Link
+                className="button outline"
+                to={isEdit ? `/posts/${initValues.postId}` : "/"}
+            >
+                취소
             </Link>
             <button className="button" type="submit" disabled={isSubmitting}>
               {isSubmitting ? "업로드 중..."

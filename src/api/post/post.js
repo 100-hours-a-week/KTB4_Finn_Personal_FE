@@ -10,3 +10,11 @@ export function createPost(postData){
         body: JSON.stringify(postData)
     });
 }
+
+export function updatePost(postId, postData){
+
+    return apiFetch(`/posts/${postId}`,{
+        method:`PATCH`,
+        body: JSON.stringify(postData)
+    });
+}

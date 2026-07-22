@@ -1,20 +1,35 @@
 import PostForm from "../components/post/PostForm";
 import Header from "../components/layout/Header";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { currentUser, mockPosts } from "../data/mockData";
 import { registerPostImage } from "../api/image/image";
-import { createPost } from "../api/post/post";
+import { createPost, getPostDetail, updatePost } from "../api/post/post";
 
 
 function PostFormPage({mode}){
+
+    const [post, setPost] = useState(null);
 
     const {postId} = useParams();
     const isEdit = mode === "edit";
 
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        if(!isEdit){
+            return;
+        }
+        const fetchPost = async () => {
+            const response = await getPostDetail(postId);
+            setPost(response.data);
+            console.log("게시물 : ", response.data);
+        }
+        fetchPost();
+    }, [isEdit, postId]);
+
 
     const handleCreate = async({
         title,
@@ -44,11 +59,43 @@ function PostFormPage({mode}){
         }
     };
 
+    const handleEdit = async ({
+        title,
+        content,
+        contentImg,
+    }) => {
+        try{
+            let contentImgUrl = contentImg;
+            setIsSubmitting(true);
+
+            if(contentImg instanceof File){
+                const uploadImageResponse = await registerPostImage(contentImg);
+                contentImgUrl = uploadImageResponse.data.imageUrl;
+            }
+
+            const editedPostResponse = await updatePost(postId, {
+                title : title,
+                content : content,
+                contentImg : contentImgUrl
+            });
+
+            console.log("수정할 데이터 : ", contentImgUrl);
+
+            navigate(`/posts/${editedPostResponse.data.postId ?? editedPostResponse.data.id ?? postId}`);
+        }catch(error){
+            console.log("게시물 수정 실패 : ", error);
+        }finally{
+            setIsSubmitting(false);
+        }
+    }
+
+
+
     //const post = isEdit ? mockPosts.find((post) => post.id === Number(postId)) : null;
 
-    // if (isEdit && !post) {
-    //     return <p>게시물을 찾을 수 없습니다.</p>;
-    // }
+    if (isEdit && !post) {
+         return <p>게시물을 불러오는 중입니다...</p>;
+    }
 
     return (
         <>
@@ -62,8 +109,8 @@ function PostFormPage({mode}){
                 </Link>
                 <PostForm
                     mode={mode}
-                    initValues={isEdit ? null : null}
-                    onSubmit={isEdit ? null : handleCreate}
+                    initValues={isEdit ? post : null}
+                    onSubmit={isEdit ? handleEdit : handleCreate}
                     isSubmitting={isSubmitting}
                 />
             </main>
