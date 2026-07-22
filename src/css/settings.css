@@ -154,14 +154,57 @@
   font-size: 13px;
 }
 
+.settings-toast {
+  position: fixed;
+  z-index: 100;
+  left: 50%;
+  bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  background: var(--ink);
+  color: #fff;
+  box-shadow: var(--shadow-standard);
+  font-size: 14px;
+  font-weight: 600;
+  transform: translateX(-50%);
+  animation: settings-toast-in 180ms ease-out;
+}
+
+.settings-toast-icon {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--success);
+  font-size: 13px;
+}
+
 @keyframes loading-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
+@keyframes settings-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .loading-spinner {
+  .loading-spinner,
+  .settings-toast {
     animation: none;
   }
 }
@@ -183,5 +226,11 @@
   .danger-zone {
     align-items: flex-start;
     gap: 16px;
+  }
+
+  .settings-toast {
+    bottom: 32px;
+    width: calc(100% - 32px);
+    justify-content: center;
   }
 }

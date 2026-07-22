@@ -13,7 +13,7 @@ import {
   mockPosts,
 } from "../data/mockData.js";
 import { useEffect } from "react";
-import { getPostDetail } from "../api/post/post.js";
+import { deletePost, getPostDetail } from "../api/post/post.js";
 
 function PostDetailPage() {
   const { postId } = useParams();
@@ -62,6 +62,16 @@ function PostDetailPage() {
       throw error;
     }
   }
+
+  const handleDeletePost = async () => {
+    try {
+      await deletePost(Number(postId));
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.log("게시물 삭제 실패 : ", error);
+      throw error;
+    }
+  };
 
   useEffect(() => {
     const fetchPostInfo = async () => {
@@ -115,6 +125,7 @@ function PostDetailPage() {
         <PostDetail
           post={post}
           isMyPost={post.isMine}
+          onDelete={handleDeletePost}
         />
 
         <CommentSection

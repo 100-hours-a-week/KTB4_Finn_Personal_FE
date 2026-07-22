@@ -1,18 +1,48 @@
+import {useEffect, useState} from "react";
 import Avatar from "../common/Avatar.jsx";
+import ConfirmModal from "../common/ConfirmModal.jsx";
 
-function EditUserProfile({currentUser}) {
-    const handleSubmit = (event) => {
-    event.preventDefault();
+function EditUserProfile({currentUser, onSubmit, onWithdraw ,isSubmitting}) {
 
-    const formData = new FormData(event.currentTarget);
+  const [previewProfileUrl, setPreviewProfileUrl] = useState(null);
+  const [nicknameError, setNicknameError] = useState("");
+  const [isWithdrawModalOpen,setIsWithdrawModalOpen] = useState(false);
 
-    console.log({
-      profilePhoto: formData.get("profile-photo"),
-      nickname: formData.get("nickname"),
-      bio: formData.get("bio"),
-    });
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0];
+
+    if(!file) return;
+
+    setPreviewProfileUrl(URL.createObjectURL(file));
   };
-  
+
+  useEffect(() => {
+    return () => {
+      if(previewProfileUrl){
+        URL.revokeObjectURL(previewProfileUrl);
+      }
+    };
+  }, [previewProfileUrl]);
+
+  const handleSubmit = (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(event.currentTarget);
+      const nickname = formData.get("nickname")?.trim() ?? "";
+
+      if (!nickname) {
+        setNicknameError("닉네임을 입력해 주세요.");
+        event.currentTarget.elements.namedItem("nickname")?.focus();
+        return;
+      }
+
+      setNicknameError("");
+
+      onSubmit({
+        profileImageFile: formData.get("profile-photo"),
+        nickname,
+      });
+  };
     return (
     <>
       <h1 className="page-heading">프로필 편집</h1>
@@ -23,6 +53,7 @@ function EditUserProfile({currentUser}) {
       <form
       className="settings-form"
       onSubmit={handleSubmit}
+      noValidate
     >
       <div className="profile-photo-field">
         <label
@@ -30,7 +61,7 @@ function EditUserProfile({currentUser}) {
           htmlFor="edit-profile-photo"
         >
           <Avatar
-            src={currentUser.profileImg}
+            src={previewProfileUrl || currentUser.profileImg}
             nickname ={currentUser.nickname}
           />
           <span>사진 변경</span>
@@ -42,6 +73,7 @@ function EditUserProfile({currentUser}) {
           name="profile-photo"
           type="file"
           accept="image/*"
+          onChange={handleImageChange}
         />
       </div>
 
@@ -66,8 +98,20 @@ function EditUserProfile({currentUser}) {
           type="text"
           defaultValue={currentUser.nickname}
           maxLength={10}
+          aria-invalid={nicknameError ? "true" : undefined}
+          aria-describedby={nicknameError ? "nickname-error" : undefined}
+          onChange={(event) => {
+            if (nicknameError && event.target.value.trim()) {
+              setNicknameError("");
+            }
+          }}
           required
         />
+        {nicknameError && (
+          <p id="nickname-error" className="helper error" role="alert">
+            {nicknameError}
+          </p>
+        )}
       </div>
 
       <div className="field">
@@ -88,8 +132,9 @@ function EditUserProfile({currentUser}) {
         <button
           className="button wide"
           type="submit"
+          disabled={isSubmitting}
         >
-          변경사항 저장
+          {isSubmitting ? "저장 중..." : "변경사항 저장"}
         </button>
       </div>
     </form>
@@ -99,8 +144,26 @@ function EditUserProfile({currentUser}) {
             <strong>회원 탈퇴</strong>
             <p>작성한 기록과 댓글이 모두 삭제됩니다.</p>
         </div>
-          <button className="button critical" type="button">탈퇴하기</button>
+          <button
+              className="button critical"
+              type="button"
+              onClick={() => setIsWithdrawModalOpen(true)}
+          >
+              탈퇴하기
+          </button>
       </div>
+      <ConfirmModal
+        isOpen={isWithdrawModalOpen}
+        title="정말 탈퇴하시겠어요?"
+        description="작성한 기록과 댓글이 모두 삭제되며 복구할 수 없습니다."
+        confirmText="탈퇴하기"
+        cancelText="취소"
+        onConfirm={async () => {
+          await onWithdraw();
+          setIsWithdrawModalOpen(false);
+        }}
+        onCancel={() => setIsWithdrawModalOpen(false)}
+      />
     </>
   );
 }

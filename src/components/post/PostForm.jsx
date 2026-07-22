@@ -18,6 +18,8 @@ function formatFileSize(bytes) {
 function PostForm({mode, initValues, onSubmit, isSubmitting}){
     const isEdit = mode === "edit";
     const fileInputRef = useRef(null);
+    const [title, setTitle] = useState(initValues?.title ?? "");
+    const [content, setContent] = useState(initValues?.content ?? "");
     const [selectedImage, setSelectedImage] = useState(() => {
       if (!isEdit || !initValues?.contentImg) {
         return null;
@@ -31,6 +33,10 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
       };
     });
     const [imageError, setImageError] = useState("");
+    const isFormValid =
+      Boolean(selectedImage) &&
+      Boolean(title.trim()) &&
+      Boolean(content.trim());
 
     useEffect(() => {
       return () => {
@@ -85,8 +91,8 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
       const formData = new FormData(event.currentTarget);
 
       onSubmit?.({
-        title: formData.get("title"),
-        content: formData.get("description"),
+        title: formData.get("title").trim(),
+        content: formData.get("description").trim(),
         contentImg: selectedImage?.file ?? selectedImage?.existingUrl ?? null,
       });
     };
@@ -103,7 +109,8 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
             <input
               id="create-title"
               name="title"
-              defaultValue={isEdit ? initValues.title : ""}
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
               type="text"
               maxLength="26"
               placeholder="장면을 한 문장으로 소개해주세요"
@@ -127,7 +134,8 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
             <textarea
               id="create-description"
               name="description"
-              defaultValue={isEdit ? initValues.content : ""}
+              value={content}
+              onChange={(event) => setContent(event.target.value)}
               placeholder="이 장면에 담긴 순간을 들려주세요"
               required
             ></textarea>
@@ -202,7 +210,11 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
             >
                 취소
             </Link>
-            <button className="button" type="submit" disabled={isSubmitting}>
+            <button
+              className="button"
+              type="submit"
+              disabled={isSubmitting || !isFormValid}
+            >
               {isSubmitting ? "업로드 중..."
                 : mode === "edit" ? "수정 완료" : "기록 올리기"}
             </button>

@@ -84,7 +84,7 @@ function ConfirmModal({
             onClick={handleConfirm}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "삭제 중..." : confirmText}
+            {isSubmitting ? "처리 중..." : confirmText}
           </button>
         </div>
       </div>

@@ -8,16 +8,16 @@ function PhotoCard({ post }) {
     <article className="photo-card">
       <div className="author-row">
         <Avatar
-          src={post.author.profileImageUrl}
-          nickname ={post.author.nickname}
+          src={post.profileImg}
+          nickname ={post.nickname}
         />
 
         <div className="author-copy">
           <strong className="author-name">
-            {post.author.nickname}
+            {post.nickname}
           </strong>
           <time className="meta">
-            {post.createdAtLabel}
+            {post.createdAt}
           </time>
         </div>
       </div>
@@ -27,7 +27,7 @@ function PhotoCard({ post }) {
         to={`/posts/${post.id}`}
       >
         <img
-          src={post.imageUrl}
+          src={post.contentImg}
           alt={post.title}
         />
       </Link>
@@ -35,8 +35,8 @@ function PhotoCard({ post }) {
 
       <div className="card-actions">
         <LikeButton
-          postId={post.postId}
-          liked={post.like !==null}
+          postId={post.id}
+          liked={post.isLiked}
           count={post.likeCount}
         />
 
@@ -51,14 +51,14 @@ function PhotoCard({ post }) {
       </h2>
 
       <p className="post-summary">
-        {post.description}
+        {post.content}
       </p>
 
-      <p className="post-tags">
+      {/* <p className="post-tags">
         {post.tags
           .map((tag) => `#${tag}`)
           .join("  ")}
-      </p>
+      </p> */}
     </article>
   );
 }

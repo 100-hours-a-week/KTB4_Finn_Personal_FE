@@ -44,7 +44,7 @@ function HeaderActions({ currentUser, showCreatePostButton }) {
         >
 
           <Avatar
-            src={currentUser.profileImageUrl}
+            src={currentUser.profileImg}
             nickname ={currentUser.nickname}
           />
         </button>

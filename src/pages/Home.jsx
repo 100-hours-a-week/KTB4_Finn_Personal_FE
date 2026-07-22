@@ -4,28 +4,63 @@ import Header from "../components/layout/Header.jsx";
 import SideNavigation from "../components/navagation/SideNavigation.jsx";
 import FeedSection from "../components/feed/FeedSection.jsx";
 import DiscoverySidebar from "../components/discovery/DiscoverSidebar.jsx";
-import { useState,  useMemo } from "react";
+import { useState, useEffect } from "react";
+import { getUserInfo } from "../api/user/user.js";
+import { getPosts } from "../api/post/post.js";
 
-import {
-  currentUser,
-  mockPosts,
-  todayTopic,
-  recommendedTags,
-} from "../data/mockData.js";
+ import {
+//   currentUser,
+//   mockPosts,
+   todayTopic,
+   recommendedTags,
+ } from "../data/mockData.js";
 
 function HomePage() {
 
   const [selectedMenu, setSelectedMenu] = useState("recent");
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const sortedPosts = useMemo(() => {
-    if(selectedMenu === "popular"){
-      return[...mockPosts].sort(
-        (a, b) => b.likeCount - a.likeCount
-      );
-    }
-    return mockPosts;
-  }, [selectedMenu]);
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+      const fetchUserInfo = async () => {
+        try {
+          const response = await getUserInfo();
+          setCurrentUser(response.data);
+        } catch (error) {
+          console.error("요청 실패:", error);
+        }
+      };
+
+      fetchUserInfo();
+    }, []);
+
+    useEffect(() => {
+      const fetchPosts = async () => {
+        try {
+          setIsLoading(true);
+
+          const filter =
+            selectedMenu === "popular"
+              ? "POPULAR"
+              : "RECENT";
+
+          const response = await getPosts(filter);
+          console.log("posts: ",response.data);
+
+          const fetchedPosts = response.data?.posts ?? response.data;
+          setPosts(Array.isArray(fetchedPosts) ? fetchedPosts : []);
+        } catch (error) {
+          console.error("게시물 목록 요청 실패:", error);
+          setPosts([]);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchPosts();
+    }, [selectedMenu]);
   return (
     <>
       <Header currentUser={currentUser} />
@@ -37,7 +72,11 @@ function HomePage() {
 
         />
 
-        <FeedSection posts={sortedPosts} />
+        {isLoading ? (
+          <p>게시물을 불러오는 중입니다...</p>
+        ) : (
+          <FeedSection posts={posts} />
+        )}
 
         <DiscoverySidebar
           topic={todayTopic}
