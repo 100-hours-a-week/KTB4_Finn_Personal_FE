@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Avatar from "../common/Avatar.jsx";
+import { formatRelativeTime } from "../../utils/date.js";
 
 function CommentList({
   comment,
@@ -53,8 +54,8 @@ function CommentList({
             {comment.nickname}
           </strong>
 
-          <time className="meta">
-            {comment.createdAt}
+          <time className="meta" dateTime={comment.createdAt}>
+            {formatRelativeTime(comment.createdAt)}
           </time>
         </div>
 

@@ -2,6 +2,7 @@ import LikeButton from "./LikeButton";
 import CommentIcon from "../icons/CommentIcon.jsx";
 import {Link} from "react-router-dom";
 import Avatar from "../common/Avatar.jsx";
+import { formatRelativeTime } from "../../utils/date.js";
 
 function PhotoCard({ post }) {
   return (
@@ -16,8 +17,8 @@ function PhotoCard({ post }) {
           <strong className="author-name">
             {post.nickname}
           </strong>
-          <time className="meta">
-            {post.createdAt}
+          <time className="meta" dateTime={post.createdAt}>
+            {formatRelativeTime(post.createdAt)}
           </time>
         </div>
       </div>

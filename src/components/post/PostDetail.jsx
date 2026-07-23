@@ -3,6 +3,7 @@ import Avatar from "../common/Avatar.jsx";
 import ConfirmModal from "../common/ConfirmModal.jsx";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { formatRelativeTime } from "../../utils/date.js";
 
 function PostDetail({ post, isMyPost, onDelete }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -16,7 +17,31 @@ function PostDetail({ post, isMyPost, onDelete }) {
     <>
       <article>
         <header className="detail-head">
-          <div className="detail-title-row">
+
+          <div className="detail-author">
+            <Avatar
+              src={post.profileImg}
+            />
+
+            <div className="author-copy">
+              <strong className="author-name">
+                {post.username}
+              </strong>
+
+              <time className="meta" dateTime={post.createdAt}>
+                {formatRelativeTime(post.createdAt)}
+              </time>
+            </div>
+          </div>
+
+          
+        </header>
+
+        <img
+          className="detail-photo"
+          src={post.contentImg}
+        />
+        <div className="detail-title-row">
             <h1>{post.title}</h1>
 
             {isMyPost && (
@@ -38,28 +63,6 @@ function PostDetail({ post, isMyPost, onDelete }) {
               </div>
             )}
           </div>
-
-          <div className="detail-author">
-            <Avatar
-              src={post.profileImg}
-            />
-
-            <div className="author-copy">
-              <strong className="author-name">
-                {post.username}
-              </strong>
-
-              <time className="meta">
-                {post.createdAt}
-              </time>
-            </div>
-          </div>
-        </header>
-
-        <img
-          className="detail-photo"
-          src={post.contentImg}
-        />
 
         <p className="detail-copy">
           {post.content}
