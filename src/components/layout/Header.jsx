@@ -16,10 +16,12 @@ function HeaderActions({ currentUser, showCreatePostButton }) {
     try{
       setIsLogOut(true);
       await logout();
-      navigate("/login", { replace: true });
+    
     }catch(error){
       console.log("로그아웃 실패 : ", error);
     }finally{
+      navigate("/login", { replace: true });
+      localStorage.removeItem("accessToken");
       setIsLogOut(false);
     }
   }

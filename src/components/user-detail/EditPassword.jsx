@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isValidPassword } from "../../utils/password.js";
 
 function EditPassword({
   onSubmit,
@@ -8,12 +9,14 @@ function EditPassword({
 }) {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+  const isNewPasswordValid = isValidPassword(newPassword);
+  const showPasswordInvalid = Boolean(newPassword) && !isNewPasswordValid;
   const isPasswordMismatch = newPassword !== newPasswordConfirm;
   const showPasswordMismatch =
     Boolean(newPasswordConfirm) && isPasswordMismatch;
   const isSubmitDisabled =
     isSubmitting ||
-    !newPassword ||
+    !isNewPasswordValid ||
     !newPasswordConfirm ||
     isPasswordMismatch;
 
@@ -27,6 +30,10 @@ function EditPassword({
     const confirmInput = event.currentTarget.elements.namedItem(
       "new-password-confirm",
     );
+
+    if (!isValidPassword(newPassword)) {
+      return;
+    }
 
     if (newPassword !== newPasswordConfirm) {
       confirmInput?.setCustomValidity("새 비밀번호가 일치하지 않습니다.");
@@ -79,12 +86,23 @@ function EditPassword({
             placeholder="8자 이상 입력하세요"
             autoComplete="new-password"
             value={newPassword}
+            minLength={8}
+            aria-invalid={showPasswordInvalid}
+            aria-describedby={
+              showPasswordInvalid ? "new-password-error" : undefined
+            }
             onChange={(event) => setNewPassword(event.target.value)}
             required
           />
-          <p className="helper">
-            영문, 숫자를 조합해 8자 이상 입력해주세요.
-          </p>
+          {showPasswordInvalid && (
+            <p
+              id="new-password-error"
+              className="helper error"
+              role="alert"
+            >
+              영문, 숫자를 조합해 8자 이상 입력해주세요.
+            </p>
+          )}
         </div>
 
         <div className="field">

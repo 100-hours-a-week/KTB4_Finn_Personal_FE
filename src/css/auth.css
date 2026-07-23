@@ -59,7 +59,13 @@
   margin-bottom: 4px;
 }
 
-.profile-picker label {
+.profile-picker-label {
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.profile-image-frame {
   position: relative;
   display: block;
   width: 88px;
@@ -68,7 +74,6 @@
   border: 1px solid var(--line);
   border-radius: 50%;
   background: var(--surface-soft);
-  cursor: pointer;
 }
 
 .profile-picker img {
@@ -77,7 +82,7 @@
   object-fit: cover;
 }
 
-.profile-picker span {
+.profile-picker-text {
   margin-top: 8px;
   color: var(--primary-deep);
   font-size: 13px;

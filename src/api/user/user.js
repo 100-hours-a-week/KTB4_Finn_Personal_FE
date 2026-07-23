@@ -1,5 +1,13 @@
 import { apiFetch } from "../common";
 
+
+export function signup(userData){
+    return apiFetch('/users/signup', {
+        method: 'POST',
+        body: JSON.stringify(userData)
+    });
+}
+
 export function getUserInfo(){
     return apiFetch(`/users/me`);
 }

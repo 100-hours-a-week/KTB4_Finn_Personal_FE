@@ -47,7 +47,6 @@ function HomePage() {
               : "RECENT";
 
           const response = await getPosts(filter);
-          console.log("posts: ",response.data);
 
           const fetchedPosts = response.data?.posts ?? response.data;
           setPosts(Array.isArray(fetchedPosts) ? fetchedPosts : []);

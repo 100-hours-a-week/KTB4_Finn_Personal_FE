@@ -11,6 +11,13 @@ export class ApiError extends Error {
     this.data = data;
   }
 }
+function redirectToLogin() {
+  localStorage.removeItem("accessToken");
+
+  if (window.location.pathname !== "/login") {
+    window.location.replace("/login");
+  }
+}
 
 async function refreshAccessToken() {
   if (!refreshTokenPromise) {
@@ -55,50 +62,77 @@ async function refreshAccessToken() {
 }
 
 
-export async function apiFetch(url, {
+export async function apiFetch(
+  url,
+  requestOptions = {},
+  {
+    retryOnUnauthorized = true,
+    hasRetried = false,
+  } = {},
+) {
+  const {
     method = "GET",
     body,
     headers,
     ...options
-} = {},
-) {
-    const isFormData = body instanceof FormData;
-    const accessToken = localStorage.getItem("accessToken");
+  } = requestOptions;
 
+  const isFormData = body instanceof FormData;
+  const accessToken = localStorage.getItem("accessToken");
 
-    const response = await fetch(`${API_BASE_URL}${url}`, {
-        method,
-        credentials: "include",
-        headers: {
-            ...(!isFormData && body ? {"Content-Type": "application/json"} : {}),
-            ...(accessToken ? {Authorization : `Bearer ${accessToken}`} : {}),
-            ...headers,
-        },
-        body:
-            body == null || isFormData || typeof body === "string" ? body : JSON.stringify(body),
-        ...options,
-    });
+  const response = await fetch(`${API_BASE_URL}${url}`, {
+    method,
+    credentials: "include",
+    headers: {
+      ...(!isFormData && body ? { "Content-Type": "application/json" } : {}),
+      ...(accessToken
+        ? { Authorization: `Bearer ${accessToken}` }
+        : {}),
+      ...headers,
+    },
+    body:
+      body == null || isFormData || typeof body === "string"
+        ? body
+        : JSON.stringify(body),
+    ...options,
+  });
 
-    if((response.status === 401)){
-        await refreshAccessToken();
-        return apiFetch(url, options, false);
+  if (response.status === 401 && retryOnUnauthorized) {
+    if (hasRetried) {
+      redirectToLogin();
+      throw new ApiError("로그인이 필요합니다.", 401, null);
     }
 
-    const contentType = response.headers.get("Content-Type") ?? "";
-    const hasJson = contentType.includes("application/json");
+    try {
+      await refreshAccessToken();
 
-    const data = response.status === 204 ? null : hasJson ? await response.json() : await response.text();
+      return apiFetch(url, requestOptions, {
+        retryOnUnauthorized: true,
+        hasRetried: true,
+      });
+    } catch (error) {
+      redirectToLogin();
+      throw error;
+    }
+  }
 
-    // refreshToken로직 추가
+  const contentType = response.headers.get("Content-Type") ?? "";
+  const hasJson = contentType.includes("application/json");
 
-    if(!response.ok){
-        throw new ApiError(
-            data?.message ?? "오류 발생",
-            response.status,
-            data,
-        );
-    }    
+  const data =
+    response.status === 204
+      ? null
+      : hasJson
+        ? await response.json()
+        : await response.text();
 
-    return data
+  if (!response.ok) {
+    throw new ApiError(
+      data?.message ?? "오류가 발생했습니다.",
+      response.status,
+      data,
+    );
+  }
 
+  return data;
 }
