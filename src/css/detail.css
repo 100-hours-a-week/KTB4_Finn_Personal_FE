@@ -5,6 +5,10 @@
 }
 
 .detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 16px;
 }
 
@@ -253,7 +257,4 @@
     display: block;
   }
 
-  .detail-actions {
-    margin-top: 16px;
-  }
 }

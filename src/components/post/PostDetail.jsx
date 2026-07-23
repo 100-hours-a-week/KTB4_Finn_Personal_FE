@@ -17,7 +17,6 @@ function PostDetail({ post, isMyPost, onDelete }) {
     <>
       <article>
         <header className="detail-head">
-
           <div className="detail-author">
             <Avatar
               src={post.profileImg}
@@ -34,7 +33,24 @@ function PostDetail({ post, isMyPost, onDelete }) {
             </div>
           </div>
 
-          
+          {isMyPost && (
+            <div className="detail-actions">
+              <Link
+                className="button outline"
+                to={`/posts/edit/${post.postId}`}
+              >
+                수정
+              </Link>
+
+              <button
+                className="button critical"
+                type="button"
+                onClick={() => setIsDeleteModalOpen(true)}
+              >
+                삭제
+              </button>
+            </div>
+          )}
         </header>
 
         <img
@@ -42,27 +58,8 @@ function PostDetail({ post, isMyPost, onDelete }) {
           src={post.contentImg}
         />
         <div className="detail-title-row">
-            <h1>{post.title}</h1>
-
-            {isMyPost && (
-              <div className="detail-actions">
-                <Link
-                  className="button outline"
-                  to={`/posts/edit/${post.postId}`}
-                >
-                  수정
-                </Link>
-
-                <button
-                  className="button critical"
-                  type="button"
-                  onClick={() => setIsDeleteModalOpen(true)}
-                >
-                  삭제
-                </button>
-              </div>
-            )}
-          </div>
+          <h1>{post.title}</h1>
+        </div>
 
         <p className="detail-copy">
           {post.content}
