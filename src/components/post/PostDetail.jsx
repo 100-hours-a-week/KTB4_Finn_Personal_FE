@@ -1,4 +1,4 @@
-import LikeButton from "../feed/LikeButton.jsx";
+import LikeButton from "../common/LikeButton.jsx";
 import Avatar from "../common/Avatar.jsx";
 import ConfirmModal from "../common/ConfirmModal.jsx";
 import { Link } from "react-router-dom";

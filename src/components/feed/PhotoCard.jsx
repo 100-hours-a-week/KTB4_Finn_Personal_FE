@@ -1,4 +1,4 @@
-import LikeButton from "./LikeButton";
+import LikeButton from "../common/LikeButton.jsx";
 import CommentIcon from "../icons/CommentIcon.jsx";
 import {Link} from "react-router-dom";
 import Avatar from "../common/Avatar.jsx";
