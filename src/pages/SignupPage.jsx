@@ -1,6 +1,6 @@
 import Header from "../components/layout/Header";
 import SignupForm from "../components/auth/SignupForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUserProfile } from "../api/image/image";
 import { useState } from "react";
 import { signup } from "../api/user/user";
@@ -8,6 +8,7 @@ import { ApiError } from "../api/common";
 
 
 function SignupPage() {
+  const navigate = useNavigate();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [emailError, setEmailError] = useState("");
@@ -30,6 +31,11 @@ function SignupPage() {
         email : formData.email,
         password : formData.password,
         profileImg : profileUrl
+      });
+
+      navigate("/login", {
+        replace: true,
+        state: { toastMessage: "회원가입이 완료되었습니다." },
       });
 
     }catch(error){

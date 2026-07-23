@@ -8,12 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 import { deleteComment, getCommentByPostId,registerComment, updateComment } from "../api/comment/comment.js";
 
-import {
-  currentUser,
-  mockPosts,
-} from "../data/mockData.js";
 import { useEffect } from "react";
 import { deletePost, getPostDetail } from "../api/post/post.js";
+import { getUserInfo } from "../api/user/user.js";
 
 function PostDetailPage() {
   const { postId } = useParams();
@@ -21,6 +18,21 @@ function PostDetailPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState(null);
   const [commentInfo, setCommentInfo] = useState([]);
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+      const fetchUserInfo = async () => {
+        try {
+          const response = await getUserInfo();
+          setCurrentUser(response.data);
+        } catch (error) {
+          console.error("요청 실패:", error);
+        }
+      };
+
+      fetchUserInfo();
+    }, []);
 
   const navigate = useNavigate();
   

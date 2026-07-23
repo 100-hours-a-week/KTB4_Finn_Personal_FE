@@ -1,15 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/layout/Header";
 import LoginForm from "../components/auth/LoginForm";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { login } from "../api/auth/auth";
 import { ApiError } from "../api/common";
 
 function LoginPage(){
     const navigate = useNavigate();
+    const location = useLocation();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
+    const [toastMessage, setToastMessage] = useState(
+        location.state?.toastMessage ?? "",
+    );
+
+    useEffect(() => {
+        if (!location.state?.toastMessage) {
+            return;
+        }
+
+        navigate(location.pathname, { replace: true, state: null });
+    }, [location.pathname, location.state, navigate]);
+
+    useEffect(() => {
+        if (!toastMessage) {
+            return;
+        }
+
+        const timeoutId = window.setTimeout(() => {
+            setToastMessage("");
+        }, 3000);
+
+        return () => window.clearTimeout(timeoutId);
+    }, [toastMessage]);
 
     const handleLogin = async ({email, password}) => {
         setIsSubmitting(true);
@@ -58,6 +82,12 @@ function LoginPage(){
                 </Link>
                 </section>
             </main>
+            {toastMessage && (
+                <div className="settings-toast" role="status" aria-live="polite">
+                    <span className="settings-toast-icon" aria-hidden="true">✓</span>
+                    {toastMessage}
+                </div>
+            )}
         </>
     )
 }
