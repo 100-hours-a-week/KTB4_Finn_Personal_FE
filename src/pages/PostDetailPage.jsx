@@ -92,6 +92,7 @@ function PostDetailPage() {
 
         const postInfoResponse = await getPostDetail(Number(postId));
         setPost(postInfoResponse.data);
+        console.log("post : ", postInfoResponse.data);
 
         const commentInfoResponse = await getCommentByPostId(Number(postId));
         setCommentInfo(commentInfoResponse.data.comments);

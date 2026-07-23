@@ -77,7 +77,7 @@ function PostDetail({ post, isMyPost, onDelete }) {
         >
           <LikeButton
             postId={post.postId}
-            liked={post.like !== null}
+            liked={post.isLiked}
             count={post.likeCount}
           />
 
