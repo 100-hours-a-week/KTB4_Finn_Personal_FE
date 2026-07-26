@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../components/layout/Header.jsx";
 import EditUserProfile from "../components/user-detail/EditUserProfile.jsx";
 import EditPassword from "../components/user-detail/EditPassword.jsx";
-import { getUserInfo, updatePassword, updateUser, withdraw } from "../api/user/user.js";
+import { updatePassword, updateUser, withdraw } from "../api/user/user.js";
 import { registerUserProfile } from "../api/image/image.js";
 import { ApiError } from "../api/common.js";
 import { useNavigate } from "react-router-dom";
+import { UserInfoContext } from "../context/UserInfoContext.jsx";
 //import { currentUser } from "../data/mockData.js";
 
 function ProfileEditPage() {
@@ -15,11 +16,11 @@ function ProfileEditPage() {
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState("profile");
-  const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const {currentUser, setCurrentUser} = useContext(UserInfoContext);
 
 
   const handleProfileUpdate = async ({ nickname, profileImg }) => {
@@ -27,7 +28,6 @@ function ProfileEditPage() {
       nickname,
       profileImg,
     });
-
     setCurrentUser(response.data);
   };
 
@@ -92,22 +92,6 @@ function ProfileEditPage() {
     }
   }
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        setIsLoading(true);
-
-        const response = await getUserInfo();
-        setCurrentUser(response.data);
-      } catch (error) {
-        console.error("요청 실패:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
 
   useEffect(() => {
     if (!toastMessage) {
@@ -151,22 +135,16 @@ function ProfileEditPage() {
           </nav>
 
           {activeTab === "profile" && (
-              isLoading ? (
-                <div className="settings-loading" role="status" aria-live="polite">
-                  <div className="loading-spinner" aria-hidden="true" />
-                  <strong>프로필을 불러오고 있어요</strong>
-                  <p>잠시만 기다려 주세요.</p>
-                </div>
-              ) : currentUser ? (
-                <EditUserProfile
-                  currentUser={currentUser}
-                  onSubmit={handleProfileSubmit}
-                  onWithdraw={handleWithdraw}
-                  isSubmitting={isSubmitting}
-                />
-              ) : (
-                <p>사용자 정보를 불러오지 못했습니다.</p>
-              )
+            currentUser ? (
+              <EditUserProfile
+                currentUser={currentUser}
+                onSubmit={handleProfileSubmit}
+                onWithdraw={handleWithdraw}
+                isSubmitting={isSubmitting}
+              />
+            ) : (
+              <p>사용자 정보를 불러오지 못했습니다.</p>
+            )
           )}
           {activeTab === "password" && (
             <EditPassword

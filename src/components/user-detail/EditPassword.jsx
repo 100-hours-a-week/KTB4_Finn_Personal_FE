@@ -60,7 +60,6 @@ function EditPassword({
             name="current-password"
             type="password"
             placeholder="현재 비밀번호를 입력하세요"
-            autoComplete="current-password"
             aria-invalid={Boolean(error)}
             aria-describedby={error ? "current-password-error" : undefined}
             onChange={() => onClearError?.()}

@@ -4,9 +4,10 @@ import Header from "../components/layout/Header.jsx";
 import SideNavigation from "../components/navagation/SideNavigation.jsx";
 import FeedSection from "../components/feed/FeedSection.jsx";
 import DiscoverySidebar from "../components/discovery/DiscoverSidebar.jsx";
-import { useState, useEffect } from "react";
-import { getUserInfo } from "../api/user/user.js";
+import { useState, useEffect, useContext } from "react";
 import { getPosts } from "../api/post/post.js";
+
+import { UserInfoContext } from "../context/UserInfoContext.jsx";
 
  import {
 //   currentUser,
@@ -16,25 +17,13 @@ import { getPosts } from "../api/post/post.js";
  } from "../data/mockData.js";
 
 function HomePage() {
+  
+  const {currentUser} = useContext(UserInfoContext);
 
   const [selectedMenu, setSelectedMenu] = useState("recent");
-  const [currentUser, setCurrentUser] = useState(null);
-
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-      const fetchUserInfo = async () => {
-        try {
-          const response = await getUserInfo();
-          setCurrentUser(response.data);
-        } catch (error) {
-          console.error("요청 실패:", error);
-        }
-      };
-
-      fetchUserInfo();
-    }, []);
 
     useEffect(() => {
       const fetchPosts = async () => {

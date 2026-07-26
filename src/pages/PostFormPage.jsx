@@ -1,15 +1,17 @@
 import PostForm from "../components/post/PostForm";
 import Header from "../components/layout/Header";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { currentUser, mockPosts } from "../data/mockData";
 import { registerPostImage } from "../api/image/image";
 import { createPost, getPostDetail, updatePost } from "../api/post/post";
+import { UserInfoContext } from "../context/UserInfoContext";
 
 
 function PostFormPage({mode}){
 
+    const {currentUser} = useContext(UserInfoContext);
+;
     const [post, setPost] = useState(null);
 
     const {postId} = useParams();
@@ -17,6 +19,7 @@ function PostFormPage({mode}){
 
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+
 
     useEffect(() => {
         if(!isEdit){

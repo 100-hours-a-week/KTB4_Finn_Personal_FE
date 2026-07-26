@@ -3,14 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../components/layout/Header.jsx";
 import PostDetail from "../components/post/PostDetail.jsx";
 import CommentSection from "../components/comment/CommentSection.jsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { deleteComment, getCommentByPostId,registerComment, updateComment } from "../api/comment/comment.js";
 
 import { useEffect } from "react";
 import { deletePost, getPostDetail } from "../api/post/post.js";
-import { getUserInfo } from "../api/user/user.js";
+import { UserInfoContext } from "../context/UserInfoContext.jsx";
 
 function PostDetailPage() {
   const { postId } = useParams();
@@ -19,20 +19,9 @@ function PostDetailPage() {
   const [post, setPost] = useState(null);
   const [commentInfo, setCommentInfo] = useState([]);
 
-  const [currentUser, setCurrentUser] = useState(null);
+  const {currentUser} = useContext(UserInfoContext);
 
-  useEffect(() => {
-      const fetchUserInfo = async () => {
-        try {
-          const response = await getUserInfo();
-          setCurrentUser(response.data);
-        } catch (error) {
-          console.error("요청 실패:", error);
-        }
-      };
-
-      fetchUserInfo();
-    }, []);
+  
 
   const navigate = useNavigate();
   
