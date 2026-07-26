@@ -86,6 +86,105 @@ button.nav-item {
   margin-top: 28px; /*tag-tab 추가 시 삭제*/
 }
 
+.feed-loading {
+  width: 100%;
+}
+
+.feed-skeleton-list {
+  gap: 36px;
+}
+
+.skeleton {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: #f0f2f4;
+}
+
+.skeleton::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.75) 48%,
+    transparent 76%
+  );
+  content: "";
+  transform: translateX(-100%);
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 50%;
+}
+
+.skeleton-author-copy {
+  display: grid;
+  gap: 7px;
+  width: 112px;
+}
+
+.skeleton-line {
+  width: 100%;
+  height: 12px;
+}
+
+.skeleton-line-name {
+  width: 88px;
+  height: 14px;
+}
+
+.skeleton-line-meta {
+  width: 58px;
+  height: 10px;
+}
+
+.skeleton-feed-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+}
+
+.skeleton-actions {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0 12px;
+}
+
+.skeleton-action {
+  width: 64px;
+  height: 18px;
+  border-radius: 9999px;
+}
+
+.skeleton-line-title {
+  width: 46%;
+  height: 17px;
+  margin-bottom: 10px;
+}
+
+.skeleton-line-copy {
+  width: 78%;
+  height: 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
+}
+
 .feed-empty {
   display: flex;
   min-height: 280px;

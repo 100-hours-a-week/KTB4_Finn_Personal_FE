@@ -15,7 +15,7 @@ import { UserInfoContext } from "../context/UserInfoContext.jsx";
 function PostDetailPage() {
   const { postId } = useParams();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState(null);
   const [commentInfo, setCommentInfo] = useState([]);
 
@@ -95,7 +95,55 @@ function PostDetailPage() {
   }, [postId]);
 
   if (isLoading) {
-    return <p>게시물을 불러오는 중입니다...</p>;
+    return (
+      <>
+        <Header currentUser={currentUser} />
+
+        <main
+          className="detail-shell container-inner"
+          aria-busy="true"
+          aria-label="게시물을 불러오는 중"
+        >
+          <Link className="back-link" to="/">
+            ← 피드로 돌아가기
+          </Link>
+
+          <span className="sr-only" role="status">
+            게시물을 불러오는 중입니다.
+          </span>
+
+          <article className="detail-skeleton" aria-hidden="true">
+            <header className="detail-head">
+              <div className="detail-author">
+                <span className="skeleton skeleton-detail-avatar" />
+                <div className="skeleton-author-copy">
+                  <span className="skeleton skeleton-line skeleton-line-name" />
+                  <span className="skeleton skeleton-line skeleton-line-meta" />
+                </div>
+              </div>
+              <span className="skeleton skeleton-detail-button" />
+            </header>
+
+            <div className="skeleton skeleton-detail-photo" />
+            <span className="skeleton skeleton-line skeleton-detail-title" />
+            <div className="skeleton-detail-copy">
+              <span className="skeleton skeleton-line" />
+              <span className="skeleton skeleton-line" />
+              <span className="skeleton skeleton-line skeleton-line-short" />
+            </div>
+            <div className="skeleton-detail-metrics">
+              <span className="skeleton skeleton-action" />
+              <span className="skeleton skeleton-action skeleton-action-wide" />
+            </div>
+          </article>
+
+          <section className="comment-section detail-comment-skeleton" aria-hidden="true">
+            <span className="skeleton skeleton-line skeleton-comment-title" />
+            <div className="skeleton skeleton-comment-box" />
+          </section>
+        </main>
+      </>
+    );
   }
 
 

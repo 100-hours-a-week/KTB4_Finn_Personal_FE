@@ -22,7 +22,7 @@ function HomePage() {
 
   const [selectedMenu, setSelectedMenu] = useState("recent");
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
@@ -61,7 +61,7 @@ function HomePage() {
         />
 
         {isLoading ? (
-          <p>게시물을 불러오는 중입니다...</p>
+          <HomeFeedSkeleton />
         ) : (
           <FeedSection posts={posts} />
         )}
@@ -72,6 +72,48 @@ function HomePage() {
         />
       </main>
     </>
+  );
+}
+
+function HomeFeedSkeleton() {
+  return (
+    <section
+      className="feed feed-loading"
+      aria-busy="true"
+      aria-label="게시물을 불러오는 중"
+    >
+      <div className="feed-intro">
+        <h1>오늘, 시선이 머문 곳</h1>
+        <p className="lead">
+          사진을 좋아하는 사람들이 발견한 하루의 장면을 만나보세요.
+        </p>
+      </div>
+
+      <span className="sr-only" role="status">
+        게시물을 불러오는 중입니다.
+      </span>
+
+      <div className="feed-list feed-skeleton-list" aria-hidden="true">
+        {[0, 1].map((item) => (
+          <article className="photo-card feed-skeleton-card" key={item}>
+            <div className="author-row">
+              <span className="skeleton skeleton-avatar" />
+              <div className="skeleton-author-copy">
+                <span className="skeleton skeleton-line skeleton-line-name" />
+                <span className="skeleton skeleton-line skeleton-line-meta" />
+              </div>
+            </div>
+            <div className="skeleton skeleton-feed-photo" />
+            <div className="skeleton-actions">
+              <span className="skeleton skeleton-action" />
+              <span className="skeleton skeleton-action" />
+            </div>
+            <span className="skeleton skeleton-line skeleton-line-title" />
+            <span className="skeleton skeleton-line skeleton-line-copy" />
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
