@@ -41,13 +41,9 @@ function UserLayout(){
 
     const contextValue = useMemo( () => ({currentUser, setCurrentUser}), [currentUser]);
 
-    if (isLoading) {
-      return <p>사용자 정보를 불러오는 중입니다...</p>;
-    }
 
     return (
       <UserInfoContext.Provider value={contextValue}>
-        {/* UserLayout의 자식 페이지가 렌더링되는 자리 */}
         <Outlet />
       </UserInfoContext.Provider>
     );
