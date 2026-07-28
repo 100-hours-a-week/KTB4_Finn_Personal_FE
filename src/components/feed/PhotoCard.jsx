@@ -55,11 +55,11 @@ function PhotoCard({ post }) {
         {post.content}
       </p>
 
-      {/* <p className="post-tags">
-        {post.tags
+      <p className="post-tags">
+        {post.tagNames
           .map((tag) => `#${tag}`)
           .join("  ")}
-      </p> */}
+      </p>
     </article>
   );
 }

@@ -66,9 +66,9 @@ function PostDetail({ post, isMyPost, onDelete }) {
         </p>
 
         <p className="detail-tags">
-          {/* {post.tags
+           {post.tagNames
             .map((tag) => `#${tag}`)
-            .join("  ")} */}
+            .join("  ")}
         </p>
 
         <div

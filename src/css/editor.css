@@ -109,6 +109,45 @@
   padding: 0 12px;
 }
 
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  background: var(--primary-soft);
+  color: var(--primary-deep);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag-chip-remove {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--primary-deep);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tag-chip-remove:hover {
+  color: var(--primary-pressed);
+}
+
+.field input.tag-input-error {
+  border-color: var(--danger);
+}
+
 .input-error {
   color: var(--critical, #c33a2c);
 }

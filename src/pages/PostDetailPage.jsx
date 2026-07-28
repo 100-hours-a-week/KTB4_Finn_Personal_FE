@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { deleteComment, getCommentByPostId,registerComment, updateComment } from "../api/comment/comment.js";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { deletePost, getPostDetail } from "../api/post/post.js";
 import { UserInfoContext } from "../context/UserInfoContext.jsx";
 
@@ -21,9 +21,36 @@ function PostDetailPage() {
 
   const {currentUser} = useContext(UserInfoContext);
 
-  
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPostInfo = async () => {
+      try{
+        setIsLoading(true);
+
+        const postInfoResponse = await getPostDetail(Number(postId));
+        setPost(postInfoResponse.data);
+
+        console.log("post 정보 : ", postInfoResponse.data);
+        const commentInfoResponse = await getCommentByPostId(Number(postId));
+        setCommentInfo(commentInfoResponse.data.comments);
+
+      }catch(error){
+        console.log("게시물 요청 실패 : ", error);
+      }finally{
+        setIsLoading(false);
+      }
+    };
+    fetchPostInfo();
+  }, [postId]);
+
+  useLayoutEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, [postId]);
   
   const handleCreateComment = async (content) => {
     try{
@@ -73,26 +100,6 @@ function PostDetailPage() {
       throw error;
     }
   };
-
-  useEffect(() => {
-    const fetchPostInfo = async () => {
-      try{
-        setIsLoading(true);
-
-        const postInfoResponse = await getPostDetail(Number(postId));
-        setPost(postInfoResponse.data);
-
-        const commentInfoResponse = await getCommentByPostId(Number(postId));
-        setCommentInfo(commentInfoResponse.data.comments);
-
-      }catch(error){
-        console.log("게시물 요청 실패 : ", error);
-      }finally{
-        setIsLoading(false);
-      }
-    };
-    fetchPostInfo();
-  }, [postId]);
 
   if (isLoading) {
     return (

@@ -38,6 +38,7 @@ function PostFormPage({mode}){
         title,
         content,
         contentImg,
+        tags
     }) => {
         try{
             let contentImgUrl = null;
@@ -52,6 +53,7 @@ function PostFormPage({mode}){
                 title : title,
                 content : content,
                 contentImg : contentImgUrl,
+                tags : tags,
             });
 
             navigate(`/posts/${createdPostResponse.data.id}`);
