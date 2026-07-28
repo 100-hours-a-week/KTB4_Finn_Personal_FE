@@ -56,7 +56,7 @@ function PhotoCard({ post }) {
       </p>
 
       <p className="post-tags">
-        {post.tagNames
+        {(post.tagNames ?? [])
           .map((tag) => `#${tag}`)
           .join("  ")}
       </p>
