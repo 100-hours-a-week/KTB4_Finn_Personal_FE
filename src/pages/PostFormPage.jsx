@@ -94,10 +94,6 @@ function PostFormPage({mode}){
         }
     }
 
-
-
-    //const post = isEdit ? mockPosts.find((post) => post.id === Number(postId)) : null;
-
     if (isEdit && !post) {
          return <p>게시물을 불러오는 중입니다...</p>;
     }

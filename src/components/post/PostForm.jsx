@@ -22,7 +22,7 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
     const fileInputRef = useRef(null);
     const [title, setTitle] = useState(initValues?.title ?? "");
     const [content, setContent] = useState(initValues?.content ?? "");
-    const [tags, setTags] = useState(initValues?.tags ?? []);
+    const [tags, setTags] = useState(initValues?.tagNames ?? []);
     const [selectedImage, setSelectedImage] = useState(() => {
       if (!isEdit || !initValues?.contentImg) {
         return null;
