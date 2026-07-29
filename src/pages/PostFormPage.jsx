@@ -28,7 +28,6 @@ function PostFormPage({mode}){
         const fetchPost = async () => {
             const response = await getPostDetail(postId);
             setPost(response.data);
-            console.log("게시물 : ", response.data);
         }
         fetchPost();
     }, [isEdit, postId]);
@@ -68,8 +67,11 @@ function PostFormPage({mode}){
         title,
         content,
         contentImg,
+        tags
     }) => {
         try{
+
+            console.log("수정 폼: ", {title, content, contentImg, tags});
             let contentImgUrl = contentImg;
             setIsSubmitting(true);
 
@@ -81,10 +83,10 @@ function PostFormPage({mode}){
             const editedPostResponse = await updatePost(postId, {
                 title : title,
                 content : content,
-                contentImg : contentImgUrl
+                contentImg : contentImgUrl,
+                tags : tags,
             });
 
-            console.log("수정할 데이터 : ", contentImgUrl);
 
             navigate(`/posts/${editedPostResponse.data.postId ?? editedPostResponse.data.id ?? postId}`);
         }catch(error){

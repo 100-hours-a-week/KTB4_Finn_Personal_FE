@@ -18,7 +18,7 @@ function formatFileSize(bytes) {
 }
 
 function PostForm({mode, initValues, onSubmit, isSubmitting}){
-    const isEdit = mode === "edit";
+    const isEdit = mode === "edit";     
     const fileInputRef = useRef(null);
     const [title, setTitle] = useState(initValues?.title ?? "");
     const [content, setContent] = useState(initValues?.content ?? "");

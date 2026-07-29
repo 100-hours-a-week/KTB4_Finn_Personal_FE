@@ -31,7 +31,6 @@ function PostDetailPage() {
         const postInfoResponse = await getPostDetail(Number(postId));
         setPost(postInfoResponse.data);
 
-        console.log("post 정보 : ", postInfoResponse.data);
         const commentInfoResponse = await getCommentByPostId(Number(postId));
         setCommentInfo(commentInfoResponse.data.comments);
 
