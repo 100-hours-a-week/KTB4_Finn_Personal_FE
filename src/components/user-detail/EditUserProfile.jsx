@@ -114,7 +114,7 @@ function EditUserProfile({currentUser, onSubmit, onWithdraw ,isSubmitting}) {
         )}
       </div>
 
-      <div className="field">
+      {/* <div className="field">
         <label htmlFor="edit-bio">소개</label>
 
         <textarea
@@ -126,7 +126,7 @@ function EditUserProfile({currentUser, onSubmit, onWithdraw ,isSubmitting}) {
         />
 
         <p className="helper">최대 120자</p>
-      </div>
+      </div> */}
 
       <div className="settings-actions">
         <button

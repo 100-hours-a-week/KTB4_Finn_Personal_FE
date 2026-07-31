@@ -72,18 +72,180 @@ button.nav-item {
   letter-spacing: -0.02em;
 }
 
-.feed-tabs {
+.feed-filter-toggle-row {
   display: flex;
+  height: 44px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.feed-filter-toggle {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  background: var(--primary-soft);
+  cursor: pointer;
+}
+
+.feed-filter-toggle:hover {
+  background: #dcf3fc;
+}
+
+.feed-filter-toggle:focus-visible,
+.hashtag-input:focus-within,
+.hashtag-search-button:focus-visible,
+.date-filter-chip:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.2);
+}
+
+.feed-filter-toggle-icon,
+.feed-filter-toggle-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.feed-filter-toggle-icon {
+  display: block;
+  overflow: hidden;
+}
+
+.feed-filter-toggle-icon img {
+  display: block;
+}
+
+.feed-filter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 126px;
+  padding: 15px 20px;
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--section);
+}
+
+.hashtag-search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 88px;
+  gap: 12px;
+  height: 48px;
+}
+
+.hashtag-input {
+  display: flex;
+  min-width: 0;
+  align-items: center;
   gap: 8px;
-  padding: 28px 0 20px;
+  padding: 0 14px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--canvas);
+}
+
+.hashtag-prefix {
+  flex: none;
+  color: var(--primary-deep);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.hashtag-input input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.hashtag-input input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.hashtag-input input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.hashtag-search-button {
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--canvas);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.hashtag-search-button:hover {
+  background: var(--primary-pressed);
+}
+
+.date-filter-row {
+  display: flex;
+  height: 34px;
+  align-items: center;
+  gap: 8px;
   overflow-x: auto;
+}
+
+.date-filter-label {
+  flex: none;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.date-filter-chip {
+  display: inline-flex;
+  height: 34px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9999px;
+  background: var(--canvas);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.date-filter-chip.is-selected {
+  min-width: 58px;
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--canvas);
+  font-weight: 700;
+}
+
+.date-filter-chip:hover:not(.is-selected) {
+  border-color: var(--primary);
+  color: var(--primary-deep);
 }
 
 .feed-list {
   display: grid;
   gap: 36px;
-
-  margin-top: 28px; /*tag-tab 추가 시 삭제*/
+  margin-top: 20px;
 }
 
 .feed-loading {
@@ -392,6 +554,16 @@ button.nav-item {
 
   .home-layout {
     padding-top: 24px;
+  }
+
+  .feed-filter-panel {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .hashtag-search-row {
+    grid-template-columns: minmax(0, 1fr) 72px;
+    gap: 8px;
   }
 
   .photo-card {

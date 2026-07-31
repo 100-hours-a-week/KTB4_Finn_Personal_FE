@@ -2,7 +2,7 @@ import FeedTabs from "./FeedTab.jsx";
 import FeedList from "./FeedList.jsx";
 import { useState } from "react";
 
-function FeedSection({ posts }) {
+function FeedSection({ posts, onTagSearch }) {
 
   return (
     <section className="feed" aria-labelledby="feed-title">
@@ -13,7 +13,7 @@ function FeedSection({ posts }) {
         </p>
       </div>
 
-      {/* <FeedTabs /> */}
+      <FeedTabs onSearch={onTagSearch} />
 
       <FeedList posts={posts} />
     </section>

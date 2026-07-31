@@ -49,6 +49,12 @@ function HomePage() {
 
       fetchPosts();
     }, [selectedMenu]);
+
+    const handleTagSearch = () => {
+      
+    }
+
+
   return (
     <>
       <Header currentUser={currentUser} />
@@ -63,7 +69,7 @@ function HomePage() {
         {isLoading ? (
           <HomeFeedSkeleton />
         ) : (
-          <FeedSection posts={posts} />
+          <FeedSection posts={posts} onTagSearch={handleTagSearch} />
         )}
 
         <DiscoverySidebar
