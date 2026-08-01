@@ -12,6 +12,18 @@ export function getPosts(filter = "RECENT"){
     return apiFetch(`/posts?${params.toString()}`);
 }
 
+export function getPostsBySearchTag(tag, startDate, endDate){
+    const params = new URLSearchParams({
+        tag,
+        startDate,
+        endDate,
+
+    });
+    console.log("요청URL: ", `/posts/search?${params.toString()}`);
+
+    return apiFetch(`/posts/search?${params.toString()}`)
+}
+
 
 export function createPost(postData){
     return apiFetch("/posts", {
