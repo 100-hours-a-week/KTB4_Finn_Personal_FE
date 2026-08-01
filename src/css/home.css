@@ -85,14 +85,19 @@ button.nav-item {
   height: 44px;
   padding: 0;
   place-items: center;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-md);
-  background: var(--primary-soft);
+  background: var(--canvas);
   cursor: pointer;
 }
 
 .feed-filter-toggle:hover {
   background: #dcf3fc;
+}
+
+.feed-filter-toggle.is-expanded {
+  border-color: var(--primary);
+  background: var(--primary-soft);
 }
 
 .feed-filter-toggle:focus-visible,
@@ -104,7 +109,7 @@ button.nav-item {
 }
 
 .feed-filter-toggle-icon,
-.feed-filter-toggle-icon img {
+.feed-filter-toggle-icon svg {
   width: 20px;
   height: 20px;
 }
@@ -112,10 +117,29 @@ button.nav-item {
 .feed-filter-toggle-icon {
   display: block;
   overflow: hidden;
+  color: var(--ink);
 }
 
-.feed-filter-toggle-icon img {
+.feed-filter-toggle-icon svg {
   display: block;
+}
+
+.feed-filter-toggle-icon path,
+.feed-filter-toggle-icon circle {
+  stroke: currentColor;
+  stroke-width: 2.4;
+}
+
+.feed-filter-toggle-icon path {
+  stroke-linecap: round;
+}
+
+.feed-filter-toggle-icon circle {
+  fill: none;
+}
+
+.feed-filter-toggle-icon.is-active {
+  color: var(--primary);
 }
 
 .feed-filter-panel {
@@ -173,6 +197,15 @@ button.nav-item {
 .hashtag-input input::placeholder {
   color: var(--muted);
   opacity: 1;
+}
+
+.hashtag-input input:-webkit-autofill,
+.hashtag-input input:-webkit-autofill:hover,
+.hashtag-input input:-webkit-autofill:focus,
+.hashtag-input input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--canvas) inset;
+  caret-color: var(--ink);
 }
 
 .hashtag-input input::-webkit-search-cancel-button {
@@ -240,6 +273,45 @@ button.nav-item {
 .date-filter-chip:hover:not(.is-selected) {
   border-color: var(--primary);
   color: var(--primary-deep);
+}
+
+.date-range-picker {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.date-range-field {
+  display: grid;
+  gap: 6px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.date-range-field input {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  outline: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.date-range-field input:focus-visible {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(53, 197, 240, 0.2);
+}
+
+.date-range-separator {
+  height: 40px;
+  color: var(--muted);
+  line-height: 40px;
 }
 
 .feed-list {
@@ -564,6 +636,20 @@ button.nav-item {
   .hashtag-search-row {
     grid-template-columns: minmax(0, 1fr) 72px;
     gap: 8px;
+  }
+
+  .date-range-picker {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .date-range-field input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .date-range-separator {
+    display: none;
   }
 
   .photo-card {

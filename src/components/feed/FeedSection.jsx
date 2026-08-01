@@ -1,8 +1,14 @@
-import FeedTabs from "./FeedTab.jsx";
 import FeedList from "./FeedList.jsx";
 import { useState } from "react";
+import SearchFeed from "./SearchFeed.jsx";
 
-function FeedSection({ posts, onTagSearch }) {
+function FeedSection({ posts, onTagSearch, isLoading }) {
+
+  const [toggleButton, setToggleButton] = useState(false);
+
+  const handleToggleButton = () => {
+    setToggleButton(!toggleButton);
+  }
 
   return (
     <section className="feed" aria-labelledby="feed-title">
@@ -13,9 +19,68 @@ function FeedSection({ posts, onTagSearch }) {
         </p>
       </div>
 
-      <FeedTabs onSearch={onTagSearch} />
+      <div className="feed-filter-toggle-row">
+        <button
+          type="button"
+          onClick={handleToggleButton}
+          className={`feed-filter-toggle ${toggleButton ? "is-expanded" : ""}`}
+          aria-controls="feed-filter-panel"
+          aria-expanded="true"
+        >
+          <span
+            className={`feed-filter-toggle-icon ${toggleButton ? "is-active" : ""}`}
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="M15.5 15.5L21 21" />
+            </svg>
+          </span>
+          <span className="sr-only">검색 필터 닫기</span>
+        </button>
+      </div>
+      {toggleButton ? <SearchFeed onSearch={onTagSearch} /> : null}
 
-      <FeedList posts={posts} />
+      {isLoading ? (
+        <FeedListSkeleton />
+      ) : (
+        <FeedList posts={posts} />
+      )}
+    </section>
+  );
+}
+
+function FeedListSkeleton() {
+  return (
+    <section
+      className="feed feed-loading"
+      aria-busy="true"
+      aria-label="게시물을 불러오는 중"
+    >
+      <span className="sr-only" role="status">
+        게시물을 불러오는 중입니다.
+      </span>
+
+      <div className="feed-list feed-skeleton-list" aria-hidden="true">
+        {[0, 1].map((item) => (
+          <article className="photo-card feed-skeleton-card" key={item}>
+            <div className="author-row">
+              <span className="skeleton skeleton-avatar" />
+              <div className="skeleton-author-copy">
+                <span className="skeleton skeleton-line skeleton-line-name" />
+                <span className="skeleton skeleton-line skeleton-line-meta" />
+              </div>
+            </div>
+            <div className="skeleton skeleton-feed-photo" />
+            <div className="skeleton-actions">
+              <span className="skeleton skeleton-action" />
+              <span className="skeleton skeleton-action" />
+            </div>
+            <span className="skeleton skeleton-line skeleton-line-title" />
+            <span className="skeleton skeleton-line skeleton-line-copy" />
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
