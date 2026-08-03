@@ -55,6 +55,7 @@ function HomePage() {
         setIsLoading(true);
         const response = await getPostsBySearchTag(params.hashtag, params.startDate, params.endDate);
         const searchedPost = response.data?.posts;
+        console.log("검색하 게시물 목록 : ", response.data);
         setPosts(searchedPost);
       }catch(error){
         console.log("해시태그 검색 실패: ", error);

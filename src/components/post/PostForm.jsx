@@ -153,7 +153,7 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
     const handleSubmit = (event) => {
       event.preventDefault();
 
-      const formData = new FormData(event.currentTarget);
+      const formData = new FormData(event.currentTarget); 
 
       onSubmit?.({
         title: formData.get("title").trim(),
