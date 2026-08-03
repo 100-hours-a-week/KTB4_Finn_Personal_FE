@@ -39,7 +39,7 @@ function FeedSection({ posts, onTagSearch, isLoading }) {
           <span className="sr-only">검색 필터 닫기</span>
         </button>
       </div>
-      {toggleButton ? <SearchFeed onSearch={onTagSearch} /> : null}
+      {toggleButton ? <SearchFeed onSearch={onTagSearch} isLoading={isLoading} /> : null}
 
       {isLoading ? (
         <FeedListSkeleton />

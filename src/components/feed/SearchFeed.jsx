@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import filterSlidersIcon from "../../assets/filter-sliders.svg";
 
-function SearchFeed({onSearch}) {
+function SearchFeed({onSearch, isLoading}) {
 
   const [dateFilterType, setDateFilterType] = useState("TODAY");
   const [hashtag, setHashtag] = useState("");
@@ -141,8 +141,13 @@ function SearchFeed({onSearch}) {
             />
           </label>
 
-          <button type="submit" className="hashtag-search-button">
-            검색 
+          <button
+            type="submit"
+            className="hashtag-search-button"
+            disabled={isLoading}
+            aria-busy={isLoading}
+          >
+            {isLoading ? "검색중..." : "검색"}
           </button>
         </div>
 

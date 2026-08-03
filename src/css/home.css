@@ -595,6 +595,16 @@ button.nav-item {
   margin-top: 16px;
 }
 
+.hashtag-search-button:not(:disabled):hover {
+  background: var(--primary-pressed);
+}
+
+.hashtag-search-button:disabled {
+  background: var(--surface-soft);
+  color: var(--placeholder);
+  cursor: not-allowed;
+}
+
 @media (max-width: 1180px) {
   .home-layout {
     grid-template-columns: 160px minmax(0, 760px);
