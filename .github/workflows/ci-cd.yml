@@ -106,7 +106,7 @@ jobs:
               --username "$DOCKER_USERNAME" \
               --password-stdin
 
-            cd ~/FOCAL
+            cd ~/focal
 
             docker compose pull frontend
             docker compose up -d \
