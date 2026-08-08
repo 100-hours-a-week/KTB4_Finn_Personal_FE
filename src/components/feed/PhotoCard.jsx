@@ -17,9 +17,19 @@ function PhotoCard({ post }) {
           <strong className="author-name">
             {post.nickname}
           </strong>
-          <time className="meta" dateTime={post.createdAt}>
-            {formatRelativeTime(post.createdAt)}
-          </time>
+          <div className="post-meta">
+            {post.location?.placeName && (
+              <>
+                <span className="post-location">
+                  {post.location.placeName}
+                </span>
+                <span className="meta-separator" aria-hidden="true">·</span>
+              </>
+            )}
+            <time className="meta" dateTime={post.createdAt}>
+              {formatRelativeTime(post.createdAt)}
+            </time>
+          </div>
         </div>
       </div>
 

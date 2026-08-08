@@ -27,7 +27,7 @@ function FeedList({ posts = [] }) {
     <div className="feed-list">
       {postList.map((post) => (
         <PhotoCard
-          key={post.postId ?? post.id}
+          key={post.id}
           post={post}
         />
       ))}
