@@ -9,6 +9,7 @@ import "./css/detail.css";
 import "./css/settings.css";
 import "./css/editor.css";
 import "./css/auth.css";
+import "./css/map-test.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

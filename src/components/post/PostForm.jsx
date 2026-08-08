@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import LocationField from "../location/LocationField";
 
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
 const MAX_TAG_COUNT = 5;
@@ -23,7 +24,9 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
     const [title, setTitle] = useState(initValues?.title ?? "");
     const [content, setContent] = useState(initValues?.content ?? "");
     const [tags, setTags] = useState(initValues?.tagNames ?? []);
+    const [location, setLocation] = useState(initValues?.location ?? null);
     const [selectedImage, setSelectedImage] = useState(() => {
+      
       if (!isEdit || !initValues?.contentImg) {
         return null;
       }
@@ -160,6 +163,15 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
         content: formData.get("description").trim(),
         contentImg: selectedImage?.file ?? selectedImage?.existingUrl ?? null,
         tags: tags,
+        location: location
+          ? {
+              providerPlaceId: location.placeId,
+              placeName: location.placeName,
+              roadAddressName: location.roadAddressName,
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }
+          : null,
       });
     };
 
@@ -224,6 +236,14 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
             <p className={`helper ${tagError ? "input-error" : ""}`}>
               {tagError || `쉼표 또는 Enter로 최대 ${MAX_TAG_COUNT}개까지 추가할 수 있어요.`}
             </p>
+          </div>
+
+
+          <div className="field location-field">
+            <label htmlFor="create-location">
+              위치 <span className="optional-label">(선택)</span>
+            </label>
+            <LocationField value={location} onChange={setLocation} />
           </div>
 
 

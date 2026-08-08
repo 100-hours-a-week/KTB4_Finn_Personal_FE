@@ -37,7 +37,8 @@ function PostFormPage({mode}){
         title,
         content,
         contentImg,
-        tags
+        tags,
+        location,
     }) => {
         try{
             let contentImgUrl = null;
@@ -53,6 +54,7 @@ function PostFormPage({mode}){
                 content : content,
                 contentImg : contentImgUrl,
                 tags : tags,
+                location : location,
             });
 
             navigate(`/posts/${createdPostResponse.data.id}`);
@@ -67,11 +69,12 @@ function PostFormPage({mode}){
         title,
         content,
         contentImg,
-        tags
+        tags,
+        location,
     }) => {
         try{
 
-            console.log("수정 폼: ", {title, content, contentImg, tags});
+            console.log("수정 폼: ", {title, content, contentImg, tags, location});
             let contentImgUrl = contentImg;
             setIsSubmitting(true);
 
@@ -85,6 +88,7 @@ function PostFormPage({mode}){
                 content : content,
                 contentImg : contentImgUrl,
                 tags : tags,
+                location : location,
             });
 
 
