@@ -22,15 +22,24 @@ function PostDetail({ post, isMyPost, onDelete }) {
               src={post.profileImg}
             />
 
-            <div className="author-copy">
-              <strong className="author-name">
-                {post.username}
-              </strong>
-
+          <div className="author-copy">
+            <strong className="author-name">
+              {post.username}
+            </strong>
+            <div className="post-meta">
+              {post.location?.placeName && (
+                <>
+                  <span className="post-location">
+                    {post.location.placeName}
+                  </span>
+                  <span className="meta-separator" aria-hidden="true">·</span>
+                </>
+              )}
               <time className="meta" dateTime={post.createdAt}>
                 {formatRelativeTime(post.createdAt)}
               </time>
-            </div>
+          </div>
+        </div>
           </div>
 
           {isMyPost && (
