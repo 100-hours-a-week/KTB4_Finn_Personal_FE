@@ -95,13 +95,14 @@
   width: 100%;
   min-height: 44px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 6px;
   padding: 0;
   border: 0;
   background: transparent;
   color: var(--ink);
   cursor: pointer;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 600;
   line-height: 22px;
   text-align: left;
