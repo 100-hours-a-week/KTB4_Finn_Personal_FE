@@ -1,12 +1,15 @@
 import LikeButton from "../common/LikeButton.jsx";
 import Avatar from "../common/Avatar.jsx";
 import ConfirmModal from "../common/ConfirmModal.jsx";
+import KakaoMap from "../location/KakaoMap.jsx";
+import chevronRightIcon from "../../assets/icon-chevron-right.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { formatRelativeTime } from "../../utils/date.js";
 
 function PostDetail({ post, isMyPost, onDelete }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [openLocationInfo, setOpenLocationInfo] = useState(false);
 
   const handleDeleteConfirm = async () => {
     await onDelete?.();
@@ -104,6 +107,26 @@ function PostDetail({ post, isMyPost, onDelete }) {
             조회수 {post.viewCount}
           </span>
         </div>
+        {post.location && (
+          <section className="detail-location">
+            <button
+              className="detail-location-toggle"
+              type="button"
+              aria-expanded={openLocationInfo}
+              onClick={() => setOpenLocationInfo((isOpen) => !isOpen)}
+            >
+              <span>위치정보</span>
+              <img
+                className={`detail-location-chevron${openLocationInfo ? " is-open" : ""}`}
+                src={chevronRightIcon}
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            {openLocationInfo && <KakaoMap place={post.location} />}
+          </section>
+        )}
+
       </article>
 
       <ConfirmModal

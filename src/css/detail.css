@@ -86,6 +86,43 @@
   margin-left: -8px;
 }
 
+.detail-location {
+  margin-top: 24px;
+}
+
+.detail-location-toggle {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  text-align: left;
+}
+
+.detail-location-chevron {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  transition: transform 180ms ease;
+}
+
+.detail-location-chevron.is-open {
+  transform: rotate(90deg);
+}
+
+.detail-location .location-map-wrap {
+  height: 260px;
+  margin-top: 12px;
+}
+
 .skeleton-detail-avatar {
   width: 44px;
   height: 44px;
@@ -320,6 +357,14 @@
 
   .detail-title-row {
     display: block;
+  }
+
+  .detail-location {
+    margin-top: 20px;
+  }
+
+  .detail-location .location-map-wrap {
+    height: 220px;
   }
 
 }
