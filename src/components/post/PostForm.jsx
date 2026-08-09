@@ -165,7 +165,7 @@ function PostForm({mode, initValues, onSubmit, isSubmitting}){
         tags: tags,
         location: location
           ? {
-              providerPlaceId: location.providerPlaceId,
+              providerPlaceId: location.placeId,
               placeName: location.placeName,
               roadAddressName: location.roadAddressName,
               latitude: location.latitude,
