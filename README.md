@@ -7,8 +7,8 @@
 | 항목 | 내용 |
 | --- | --- |
 | 개발 기간 | 2026.06.17 ~ 2026.08.09 |
-| Frontend | [KTB4_Finn_Week10](https://github.com/100-hours-a-week/KTB4_Finn_Week10) |
-| Backend | [KTB4_Finn_Week6](https://github.com/100-hours-a-week/KTB4_Finn_Week6) |
+| Frontend | [KTB4_Finn_Personal_FE](https://github.com/100-hours-a-week/KTB4_Finn_Personal_FE) |
+| Backend | [KTB4_Finn_Personal_BE](https://github.com/100-hours-a-week/KTB4_Finn_Personal_BE) |
 
 ### 기술 스택
 
@@ -147,7 +147,7 @@ src/
     <td><img src="./screenshot/feed/home-search-result.png" alt="FOCAL 해시태그 검색 결과 화면" /></td>
   </tr>
   <tr>
-    <td>검색 패널을 펼쳐 관심 있는 해시태그를 입력합니다. 추천 태그와 촬영 주제는 새로운 기록을 탐색할 단서를 제공합니다.</td>
+    <td>검색 패널을 펼쳐 관심 있는 해시태그를 입력합니다.</td>
     <td>검색 중에는 버튼 상태를 변경하고, 응답이 완료되면 동일한 피드 카드 구조에 결과를 반영합니다.</td>
   </tr>
 </table>
@@ -214,7 +214,7 @@ src/
   </tr>
   <tr>
     <td>게시글 상세에서 댓글을 작성하고, 요청 완료 후 댓글 목록을 다시 불러와 서버 상태와 화면을 맞춥니다.</td>
-    <td>작성한 댓글을 같은 위치에서 수정할 수 있습니다. 수정 중인 댓글 ID를 상위 댓글 섹션에서 관리해 한 번에 하나만 편집합니다.</td>
+    <td>작성한 댓글을 같은 위치에서 수정할 수 있습니다. </td>
   </tr>
 </table>
 
@@ -350,8 +350,4 @@ Kakao Maps SDK처럼 React 외부에서 동작하는 비동기 도구를 연결�
 
 ### 다음 개선
 
-- ESLint와 테스트 도구를 추가하고 CI에서 정적 분석과 컴포넌트 테스트를 수행합니다.
-- 인증이 필요한 화면을 전용 Protected Route로 분리해 접근 제어 의도를 명확히 합니다.
-- 반복되는 로딩·오류 상태와 API 호출을 공통 컴포넌트 또는 Custom Hook으로 추출합니다.
-- 서버 상태 캐싱 도구와 커서 페이지네이션을 도입해 피드 확장성과 사용자 경험을 개선합니다.
-- 키보드 탐색, 스크린 리더, 모바일 레이아웃과 이미지 최적화를 자동화된 기준으로 검증합니다.
+추가 필요...
