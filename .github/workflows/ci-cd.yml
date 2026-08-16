@@ -45,6 +45,9 @@ jobs:
       #   run: npm test
 
       - name: Build
+        env:
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+          VITE_KAKAO_MAP_APP_KEY: ${{ secrets.VITE_KAKAO_MAP_APP_KEY }}
         run: npm run build
 
   # main 브랜치에서만 Docker Hub 이미지 생성
@@ -76,6 +79,12 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
+          
+          build-args: |
+            VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}
+            VITE_KAKAO_MAP_APP_KEY=${{ secrets.VITE_KAKAO_MAP_APP_KEY }}
+
+
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/focal-fe:latest
             ${{ secrets.DOCKER_USERNAME }}/focal-fe:${{ github.sha }}
