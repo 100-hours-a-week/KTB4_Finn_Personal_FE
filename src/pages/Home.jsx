@@ -14,11 +14,14 @@ import { UserInfoContext } from "../context/UserInfoContext.jsx";
    recommendedTags,
  } from "../data/mockData.js";
 
-function HomePage() {
 
-  const MIN_LOADING_TIME = 450; // 최소 로딩 시간 (밀리초)
-  const delay = (millisec) => 
-    new Promise((resolve) => setTimeout(resolve, millisec));
+
+
+function HomePage() {
+  const delay = (milliseconds) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, milliseconds);
+    });
   
   const {currentUser} = useContext(UserInfoContext);
 
@@ -28,7 +31,10 @@ function HomePage() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [hasNext, setHasNext] = useState(true);
   const [cursor, setCursor] = useState(null);
+  const [feedMode, setFeedMode] = useState("NORMAL");
+  const [searchParams, setSearchParams] = useState(null);
 
+  
 
 
     useEffect(() => {
@@ -69,6 +75,13 @@ function HomePage() {
     const handleTagSearch = async (params) => {
       try{
         setIsLoading(true);
+        
+        setHasNext(false);
+        setCursor(null);
+        
+        setFeedMode("SEARCH");
+        setSearchParams(params);
+
         const response = await getPostsBySearchTag(params.hashtag, params.startDate, params.endDate);
         const searchedPost = response.data?.posts;
         setPosts(searchedPost);
@@ -88,19 +101,32 @@ function HomePage() {
     const loadMorePosts = async () => {
       if(isLoadingMore || !hasNext) return;
 
+      let response;
+
       try {
         setIsLoadingMore(true);
-        
-        const filter =
+
+        if(feedMode == "SEARCH"){
+          if(!searchParams) return;
+
+          response = await getPostsBySearchTag(
+            searchParams.hashtag,
+            searchParams.startDate,
+            searchParams.endDate,
+            cursor
+            );
+        }else{
+          const filter =
           selectedMenu === "popular"
             ? "POPULAR"
             : "RECENT";
 
-        const [response] = await Promise.all([
-          getPosts(filter, cursor),
-          delay(MIN_LOADING_TIME),
-        ]);
-        const nextPosts = response.data?.posts;
+          response = await getPosts(filter, cursor);
+        }
+
+        await delay(500);
+        
+        const nextPosts = Array.isArray(response.data?.posts) ? response.data.posts : [];
         setPosts((prevPosts) => [
           ...prevPosts,
           ...nextPosts,
@@ -121,6 +147,7 @@ function HomePage() {
     };
 
     const handleMenuChange = (menu) => {
+      setFeedMode("NORMAL");
       setSelectedMenu(menu);
 
       window.scrollTo({

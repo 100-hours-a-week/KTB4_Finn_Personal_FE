@@ -29,16 +29,35 @@ export function getPosts(
     return apiFetch(`/posts?${params.toString()}`);
 }
 
-export function getPostsBySearchTag(tag, startDate, endDate){
+export function getPostsBySearchTag(
+    tag,
+    startDate,
+    endDate,
+    cursor = null,
+    size = 10
+) {
     const params = new URLSearchParams({
         tag,
         startDate,
         endDate,
-
+        size: String(size),
     });
-    console.log("요청URL: ", `/posts/search?${params.toString()}`);
 
-    return apiFetch(`/posts/search?${params.toString()}`)
+    if (cursor) {
+        params.set(
+            "cursorCreatedAt",
+            cursor.createdAt
+        );
+
+        params.set(
+            "cursorId",
+            String(cursor.id)
+        );
+    }
+
+    return apiFetch(
+        `/posts/search?${params.toString()}`
+    );
 }
 
 
