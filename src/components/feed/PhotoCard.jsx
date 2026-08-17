@@ -1,10 +1,13 @@
 import LikeButton from "../common/LikeButton.jsx";
 import CommentIcon from "../icons/CommentIcon.jsx";
 import {Link} from "react-router-dom";
+import { useState } from "react";
 import Avatar from "../common/Avatar.jsx";
 import { formatRelativeTime } from "../../utils/date.js";
 
 function PhotoCard({ post }) {
+  const [isImageLoading, setIsImageLoading] = useState(Boolean(post.contentImg));
+
   return (
     <article className="photo-card">
       <div className="author-row">
@@ -36,12 +39,22 @@ function PhotoCard({ post }) {
       <Link
         className="photo-link"
         to={`/posts/${post.id}`}
+        aria-busy={isImageLoading}
       >
+        {isImageLoading && (
+          <span
+            className="skeleton photo-loading-skeleton"
+            aria-hidden="true"
+          />
+        )}
         <img
+          className={`photo-image ${isImageLoading ? "is-loading" : "is-loaded"}`}
           src={post.contentImg}
           alt={post.title}
           loading="lazy"
           decoding="async"
+          onLoad={() => setIsImageLoading(false)}
+          onError={() => setIsImageLoading(false)}
         />
       </Link>
 
