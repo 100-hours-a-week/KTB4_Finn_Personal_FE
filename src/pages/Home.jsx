@@ -16,7 +16,7 @@ import { UserInfoContext } from "../context/UserInfoContext.jsx";
 
 function HomePage() {
 
-  const MIN_LOADING_TIME = 350; // 최소 로딩 시간 (밀리초)
+  const MIN_LOADING_TIME = 450; // 최소 로딩 시간 (밀리초)
   const delay = (millisec) => 
     new Promise((resolve) => setTimeout(resolve, millisec));
   

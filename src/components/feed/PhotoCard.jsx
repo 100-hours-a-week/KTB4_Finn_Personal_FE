@@ -40,6 +40,8 @@ function PhotoCard({ post }) {
         <img
           src={post.contentImg}
           alt={post.title}
+          loading="lazy"
+          decoding="async"
         />
       </Link>
 
