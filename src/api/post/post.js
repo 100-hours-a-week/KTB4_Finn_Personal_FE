@@ -17,6 +17,13 @@ export function getPosts(
     if (cursor) {
         params.set("cursorCreatedAt", cursor.createdAt);
         params.set("cursorId", String(cursor.id));
+
+        if (filter === "POPULAR" && cursor.likeCount != null) {
+            params.set(
+                "cursorLikeCount",
+                String(cursor.likeCount)
+            );
+        }
     }
 
     return apiFetch(`/posts?${params.toString()}`);

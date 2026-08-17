@@ -46,10 +46,13 @@ function HomePage() {
         const response = await getPosts(filter);
         const fetchedPosts = response.data?.posts;
         setPosts(Array.isArray(fetchedPosts) ? fetchedPosts : []);
+        
         setCursor(response.data?.hasNext ? {
-            createdAt: response.data?.nextCursorCreatedAt,
-            id: response.data?.nextCursorId
+            createdAt: response.data?.cursorCreatedAt,
+            id: response.data?.cursorId,
+            likeCount: response.data?.cursorLikeCount
         } : null);
+
         setHasNext(Boolean(response.data?.hasNext));
       } catch (error) {
         console.error("게시물 목록 요청 실패:", error);
@@ -66,8 +69,8 @@ function HomePage() {
         const searchedPost = response.data?.posts;
         setPosts(searchedPost);
         setCursor(response.data?.hasNext ? {
-            createdAt: response.data?.nextCursorCreatedAt,
-            id: response.data?.nextCursorId
+            createdAt: response.data?.cursorCreatedAt,
+            id: response.data?.cursorId
         } : null);
         setHasNext(Boolean(response.data?.hasNext));
       }catch(error){
@@ -97,8 +100,9 @@ function HomePage() {
         ]);
 
         setCursor(response.data?.hasNext ? {
-            createdAt: response.data?.nextCursorCreatedAt,
-            id: response.data?.nextCursorId
+            createdAt: response.data?.cursorCreatedAt,
+            id: response.data?.cursorId,
+            likeCount: response.data?.cursorLikeCount
         } : null);
         setHasNext(Boolean(response.data?.hasNext));
       } catch (error) {
