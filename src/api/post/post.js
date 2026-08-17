@@ -4,10 +4,20 @@ export function getPostDetail(postId){
     return apiFetch(`/posts/${postId}`);
 }
 
-export function getPosts(filter = "RECENT"){
+export function getPosts(
+  filter = "RECENT",
+  cursor = null,
+  size = 10
+) {
     const params = new URLSearchParams({
         filter,
+        size: String(size),
     });
+
+    if (cursor) {
+        params.set("cursorCreatedAt", cursor.createdAt);
+        params.set("cursorId", String(cursor.id));
+    }
 
     return apiFetch(`/posts?${params.toString()}`);
 }

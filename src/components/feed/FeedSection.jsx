@@ -1,8 +1,36 @@
 import FeedList from "./FeedList.jsx";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchFeed from "./SearchFeed.jsx";
 
-function FeedSection({ posts, onTagSearch, isLoading }) {
+function FeedSection({ posts, onTagSearch, isLoading, isLoadingMore, onLoadMore, hasNext }) {
+
+  const loadMoreRef = useRef(null);
+
+  
+
+  useEffect(() => {
+    const target = loadMoreRef.current;
+    if (!target || !hasNext) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if(entry.isIntersecting && !isLoading && !isLoadingMore){
+          onLoadMore();
+        }
+      },
+      {
+        rootMargin: "0px 0px 300px 0px",
+      }
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+
+  }, [hasNext, isLoading, isLoadingMore, onLoadMore]);
+
 
   const [toggleButton, setToggleButton] = useState(false);
 
@@ -41,10 +69,20 @@ function FeedSection({ posts, onTagSearch, isLoading }) {
       </div>
       {toggleButton ? <SearchFeed onSearch={onTagSearch} isLoading={isLoading} /> : null}
 
-      {isLoading ? (
-        <FeedListSkeleton />
-      ) : (
+    
+      {isLoading ? (<FeedListSkeleton />) 
+      : (
+        <>
         <FeedList posts={posts} />
+        {isLoadingMore && <FeedListSkeleton />}
+        {hasNext && (
+          <div
+            ref={loadMoreRef}
+            className="feed-scroll-sentinel"
+            aria-hidden="true"
+          />
+        )}
+        </>
       )}
     </section>
   );
@@ -62,7 +100,7 @@ function FeedListSkeleton() {
       </span>
 
       <div className="feed-list feed-skeleton-list" aria-hidden="true">
-        {[0, 1].map((item) => (
+        {[0].map((item) => (
           <article className="photo-card feed-skeleton-card" key={item}>
             <div className="author-row">
               <span className="skeleton skeleton-avatar" />
