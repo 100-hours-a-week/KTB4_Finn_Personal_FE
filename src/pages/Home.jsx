@@ -108,6 +108,15 @@ function HomePage() {
         setIsLoadingMore(false);
       }
     };
+
+    const handleMenuChange = (menu) => {
+      setSelectedMenu(menu);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
         
 
 
@@ -118,8 +127,7 @@ function HomePage() {
       <main className="home-layout container-inner">
         <SideNavigation
           selectedMenu={selectedMenu}
-          onMenuChange={setSelectedMenu}
-
+          onMenuChange={handleMenuChange}
         />
 
         <FeedSection posts={posts} onTagSearch={handleTagSearch} isLoading={isLoading} isLoadingMore={isLoadingMore} onLoadMore={loadMorePosts} hasNext={hasNext} />
