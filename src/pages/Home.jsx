@@ -15,6 +15,10 @@ import { UserInfoContext } from "../context/UserInfoContext.jsx";
  } from "../data/mockData.js";
 
 function HomePage() {
+
+  const MIN_LOADING_TIME = 250; // 최소 로딩 시간 (밀리초)
+  const delay = (millisec) => 
+    new Promise((resolve) => setTimeout(resolve, millisec));
   
   const {currentUser} = useContext(UserInfoContext);
 
@@ -92,7 +96,10 @@ function HomePage() {
             ? "POPULAR"
             : "RECENT";
 
-        const response = await getPosts(filter, cursor);
+        const [response] = await Promise.all([
+          getPosts(filter, cursor),
+          delay(MIN_LOADING_TIME),
+        ]);
         const nextPosts = response.data?.posts;
         setPosts((prevPosts) => [
           ...prevPosts,
