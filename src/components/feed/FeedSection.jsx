@@ -19,7 +19,7 @@ function FeedSection({ posts, onTagSearch, isLoading, isLoadingMore, onLoadMore,
         }
       },
       {
-        rootMargin: "0px 0px 50px 0px",
+        rootMargin: "0px 0px 30px 0px",
       }
     );
 
